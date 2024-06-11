@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import LinkButton from '@/components/ui/LinkButton';
 import { getContact } from '@/lib/services/getContact';
-import GithubLogo from '@/public/github-mark.svg';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
 
@@ -42,27 +41,12 @@ export default async function ContactPage({ params }: PageProps) {
           <Favorite contact={contact} />
         </h1>
 
-        {contact.position ? <p className="text-2xl">{contact.position}</p> : null}
-
         {contact.email ? (
           <p className="text-xl">
             <a href={'mailto:' + contact.email} className="no-underline hover:underline">
               {contact.email}
             </a>
           </p>
-        ) : null}
-
-        {contact.github ? (
-          <div className="flex items-center gap-2">
-            <div>
-              <Image width={16} height={16} src={GithubLogo} alt="Github Logo" />
-            </div>
-            <p className="text-xl text-primary">
-              <a target="_blank" className="no-underline hover:underline" href={`https://github.com/${contact.github}`}>
-                {contact.github}
-              </a>
-            </p>
-          </div>
         ) : null}
 
         {contact.notes ? <p>{contact.notes}</p> : null}

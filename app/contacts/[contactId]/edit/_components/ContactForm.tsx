@@ -11,7 +11,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
 
   return (
     <form className="flex max-w-[40rem] flex-col gap-4" action={updateContactById}>
-      <div className="grip-rows-6 grid grid-cols-1 gap-4 sm:grid-cols-[1fr_4fr]">
+      <div className="grip-rows-5 grid grid-cols-1 gap-4 sm:grid-cols-[1fr_4fr]">
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <input
@@ -29,12 +29,8 @@ export default function ContactForm({ contact }: { contact: Contact }) {
             type="text"
           />
         </div>
-        <label htmlFor="position">Position</label>
-        <input defaultValue={contact.position || undefined} name="position" placeholder="Konsulent" type="text" />
-        <label htmlFor="email">Email</label>
-        <input defaultValue={contact.email || undefined} name="email" placeholder="moa@inmeta.no" type="text" />
-        <label htmlFor="github">Github</label>
-        <input defaultValue={contact.github || undefined} name="github" placeholder="@moa" type="text" />
+        <label htmlFor="github">Twitter</label>
+        <input defaultValue={contact.twitter || undefined} name="twitter" placeholder="@jack" type="text" />
         <label htmlFor="avatar">Avatar URL</label>
         <input
           aria-label="Avatar URL"

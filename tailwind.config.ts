@@ -14,14 +14,21 @@ const config: Config = {
         xs: '0 0px 1px hsla(0, 0%, 0%, 0.4)',
       },
       colors: {
-        destroy: '#f44250',
+        destroy: {
+          DEFAULT: '#f44250',
+          dark: '#cc3740',
+          light: '#ff6d79',
+        },
         gray: {
           DEFAULT: '#e3e3e3',
-          background: '#f7f7f7',
-          text: '#818181',
+          dark: '#818181',
+          light: '#f7f7f7',
         },
-        primary: '#3992ff',
-        secondary: '#eeb004',
+        primary: {
+          DEFAULT: '#2b63fd',
+          dark: '#1a3dbf',
+          light: '#7297ff',
+        },
       },
     },
   },
