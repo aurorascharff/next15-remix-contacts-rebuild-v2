@@ -41,10 +41,10 @@ export default async function ContactPage({ params }: PageProps) {
           <Favorite contact={contact} />
         </h1>
 
-        {contact.email ? (
-          <p className="text-xl">
-            <a href={'mailto:' + contact.email} className="no-underline hover:underline">
-              {contact.email}
+        {contact.twitter ? (
+          <p className="text-2xl text-primary">
+            <a className="text-primary no-underline hover:underline" href={`https://twitter.com/${contact.twitter}`}>
+              {contact.twitter}
             </a>
           </p>
         ) : null}
