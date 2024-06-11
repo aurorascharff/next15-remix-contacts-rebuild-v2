@@ -6,7 +6,7 @@ export default function RootPage() {
     <div className="text-gray-dark m-8 flex flex-col gap-2 text-center">
       <Image width={400} height={400} className="mb-2 block self-center" src={LogoFull} alt="logo" />
       <p>
-        This is a second rebuild of the{' '}
+        This is a V2 rebuild of the{' '}
         <a className="hover:text-black" href="https://remix.run/docs/en/main/start/tutorial">
           Remix Contacts{' '}
         </a>
