@@ -2,18 +2,35 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import invariant from 'tiny-invariant';
+import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/contactSchema';
+import { contactSchema } from '@/validations/contactSchema';
 import { prisma } from '../../db';
 
-export async function updateContact(contactId: string, formData: FormData) {
-  invariant(contactId, 'Missing contactId param');
-  const updates = Object.fromEntries(formData);
+type State = {
+  success?: boolean;
+  data?: ContactSchemaType;
+  error?: ContactSchemaErrorType;
+};
+
+export async function updateContact(contactId: string, _prevState: State, formData: FormData): Promise<State> {
+  const contact = Object.fromEntries(formData);
+  const result = contactSchema.safeParse(contact);
+
+  if (!result.success) {
+    return {
+      data: contact as ContactSchemaType,
+      error: result.error.formErrors,
+      success: false,
+    };
+  }
+
   await prisma.contact.update({
-    data: updates,
+    data: result.data,
     where: {
       id: contactId,
     },
   });
+
   revalidatePath(`/contacts/${contactId}`);
   redirect(`/contacts/${contactId}`);
 }
