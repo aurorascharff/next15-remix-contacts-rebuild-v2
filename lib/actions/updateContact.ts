@@ -32,6 +32,5 @@ export async function updateContact(contactId: string, _prevState: State, formDa
   });
 
   revalidatePath('/');
-  revalidatePath(`/contacts/${contactId}`);
   redirect(`/contacts/${contactId}`);
 }
