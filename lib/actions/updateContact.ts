@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/contactSchema';
 import { contactSchema } from '@/validations/contactSchema';
@@ -31,7 +31,7 @@ export async function updateContact(contactId: string, _prevState: State, formDa
     },
   });
 
-  revalidateTag('contacts');
-  revalidateTag('contact');
+  revalidatePath('/');
+  revalidatePath(`/contacts/${contactId}`);
   redirect(`/contacts/${contactId}`);
 }

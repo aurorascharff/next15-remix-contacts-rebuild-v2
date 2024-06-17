@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { prisma } from '../../db';
 
@@ -10,6 +10,6 @@ export async function deleteContact(contactId: string) {
       id: contactId,
     },
   });
-  revalidateTag('contacts');
+  revalidatePath('/');
   redirect('/');
 }

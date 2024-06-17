@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '../../db';
 
 export async function favoriteContact(contactId: string, isFavorite: boolean) {
@@ -12,6 +12,5 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
       id: contactId,
     },
   });
-  revalidateTag('contacts');
-  revalidateTag('contact');
+  revalidatePath('/');
 }
