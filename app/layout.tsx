@@ -14,7 +14,7 @@ import type { Metadata } from 'next';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  description: 'Next 14 rebuild of Remix Contacts V2',
+  description: 'Next.js 15 rebuild of Remix Contacts V2',
   title: 'Next Contacts',
 };
 

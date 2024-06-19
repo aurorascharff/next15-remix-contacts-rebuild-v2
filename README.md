@@ -1,8 +1,8 @@
-# Next 14 "Remix Contacts" Rebuild V2
+# Next.js 15 "Remix Contacts" Rebuild V2
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-It is a second rebuild of [Remix Contacts](https://remix.run/docs/en/main/start/tutorial) using Next 14 with Server Actions, Tailwind CSS, and Prisma.
+It is a second rebuild of [Remix Contacts](https://remix.run/docs/en/main/start/tutorial) using Next.js 15 with Server Actions, Tailwind CSS, and Prisma.
 It does not use a global transition handler anymore, but instead uses local transitions and useFormStatus. I have also improved the design, css and folder structure since V1.
 
 First, force install the dependencies to make the React 19 Beta work:
