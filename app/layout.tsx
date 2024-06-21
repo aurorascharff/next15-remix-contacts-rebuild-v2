@@ -3,10 +3,10 @@ import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-
 import ContactList from '@/components/ContactList';
 
 import Search from '@/components/Search';
+import Skeleton from '@/components/ui/Skeleton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/lib/actions/createEmptyContact';
 import { getContacts } from '@/lib/services/getContacts';
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export const experimental_ppr = true;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const contacts = await getContacts();
+  const contacts = getContacts();
 
   return (
     <html lang="en">
@@ -38,8 +38,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <SubmitButton theme="secondary">New</SubmitButton>
               </form>
             </div>
-            <Suspense>
-              <ContactList contacts={contacts} />
+            <Suspense fallback={<Skeleton />}>
+              <ContactList contactsPromise={contacts} />
             </Suspense>
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
               <Link className="flex items-center gap-2 text-black no-underline" href="/">

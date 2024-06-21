@@ -2,13 +2,14 @@
 
 import { matchSorter } from 'match-sorter';
 import { useSearchParams } from 'next/navigation';
-import React from 'react';
+import React, { use } from 'react';
 import ContactButton from './ContactButton';
 import type { Contact } from '@prisma/client';
 
-export default function ContactList({ contacts }: { contacts: Contact[] }) {
+export default function ContactList({ contactsPromise }: { contactsPromise: Promise<Contact[]> }) {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
+  const contacts = use(contactsPromise);
 
   const filteredContacts = query
     ? matchSorter(contacts, query, {
