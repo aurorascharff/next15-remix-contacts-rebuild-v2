@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   title: 'Next Contacts',
 };
 
+export const experimental_ppr = true;
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const contacts = await getContacts();
 
