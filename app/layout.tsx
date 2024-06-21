@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-
 import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
 import Skeleton from '@/components/ui/Skeleton';
