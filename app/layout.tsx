@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
-import Skeleton from '@/components/ui/Skeleton';
+
 import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/lib/actions/createEmptyContact';
 import { getContacts } from '@/lib/services/getContacts';
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <SubmitButton theme="secondary">New</SubmitButton>
               </form>
             </div>
-            <Suspense fallback={<Skeleton />}>
+            <Suspense>
               <ContactList contacts={contacts} />
             </Suspense>
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
