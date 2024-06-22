@@ -2,10 +2,8 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
-
 import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/lib/actions/createEmptyContact';
 import { getContacts } from '@/lib/services/getContacts';
