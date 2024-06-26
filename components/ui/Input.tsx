@@ -9,7 +9,7 @@ export default function Input({ error, ...otherProps }: Props & React.InputHTMLA
   return (
     <div className="w-full">
       <input className={error ? 'outline outline-2 outline-destroy' : ''} aria-describedby="error" {...otherProps} />
-      {error && <span className="text-destroy">{error}</span>}
+      {error && <span className="text-destroy">{error[0]}</span>}
     </div>
   );
 }

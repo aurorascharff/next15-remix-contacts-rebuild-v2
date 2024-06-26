@@ -9,7 +9,7 @@ export default function TextArea({ error, ...otherProps }: Props & React.Textare
   return (
     <div>
       <textarea className={error ? 'outline outline-2 outline-destroy' : ''} aria-describedby="error" {...otherProps} />
-      {error && <span className="font- text-destroy">{error}</span>}
+      {error && <span className="font- text-destroy">{error[0]}</span>}
     </div>
   );
 }
