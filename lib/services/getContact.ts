@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { notFound } from 'next/navigation';
-import { prisma } from '../../db';
+import { prisma } from '@/db';
 
 export async function getContact(contactId: string) {
   const contact = await prisma.contact.findUnique({
