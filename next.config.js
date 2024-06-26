@@ -7,7 +7,14 @@ const nextConfig = {
     },
   },
   images: {
-    domains: ['sessionize.com'],
+    remotePatterns: [
+      {
+        hostname: 'sessionize.com',
+        pathname: '/image/**',
+        port: '',
+        protocol: 'https',
+      },
+    ],
   },
 };
 
