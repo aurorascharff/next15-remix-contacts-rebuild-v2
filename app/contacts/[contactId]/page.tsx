@@ -3,12 +3,27 @@ import LinkButton from '@/components/ui/LinkButton';
 import { getContact } from '@/lib/services/getContact';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
+import type { Metadata } from 'next';
 
 type PageProps = {
   params: {
     contactId: string;
   };
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const contact = await getContact(params.contactId);
+
+  return contact && contact.first && contact.last
+    ? {
+        description: `Contact details for ${contact.first} ${contact.last}`,
+        title: `${contact.first} ${contact.last}`,
+      }
+    : {
+        description: 'Contact details for an unnamed contact',
+        title: 'Unnamed Contact',
+      };
+}
 
 export default async function ContactPage({ params }: PageProps) {
   const contact = await getContact(params.contactId);

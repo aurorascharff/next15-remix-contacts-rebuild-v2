@@ -1,9 +1,10 @@
 import 'server-only';
 
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import { prisma } from '@/db';
 
-export async function getContact(contactId: string) {
+export const getContact = cache(async (contactId: string) => {
   const contact = await prisma.contact.findUnique({
     where: {
       id: contactId,
@@ -13,4 +14,4 @@ export async function getContact(contactId: string) {
     notFound();
   }
   return contact;
-}
+});
