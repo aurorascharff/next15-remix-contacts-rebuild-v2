@@ -13,7 +13,13 @@ export default function ContactForm({ contact }: { contact: Contact }) {
   const updateContactById = updateContact.bind(null, contact.id);
 
   const [state, updateContactAction] = useActionState(updateContactById, {
-    data: contact,
+    data: {
+      avatar: contact.avatar || '',
+      first: contact.first || '',
+      last: contact.last || '',
+      notes: contact.notes || '',
+      twitter: contact.twitter || '',
+    },
     errors: {} as ContactSchemaErrorType,
     success: false,
   });
