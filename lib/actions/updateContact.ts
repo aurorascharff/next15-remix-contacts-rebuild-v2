@@ -9,7 +9,7 @@ import { contactSchema } from '@/validations/contactSchema';
 type State = {
   success?: boolean;
   data?: ContactSchemaType;
-  error?: ContactSchemaErrorType;
+  errors?: ContactSchemaErrorType;
 };
 
 export async function updateContact(contactId: string, _prevState: State, formData: FormData): Promise<State> {
@@ -19,7 +19,7 @@ export async function updateContact(contactId: string, _prevState: State, formDa
   if (!result.success) {
     return {
       data: contact as ContactSchemaType,
-      error: result.error.formErrors,
+      errors: result.error.formErrors,
       success: false,
     };
   }
