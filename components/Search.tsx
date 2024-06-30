@@ -1,16 +1,17 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import React, { useTransition } from 'react';
+import React, { useDeferredValue, useState, useTransition } from 'react';
 import { SearchIcon, SpinnerIcon } from './ui/icons';
 
 export default function Search() {
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const query = searchParams.get('q') || '';
+  const [query, setQuery] = useState(searchParams.get('q') || '');
   const [isPending, startTransition] = useTransition();
-  const searching = isPending && query;
+  const deferredQuery = useDeferredValue(query);
+  const searching = (query && query !== deferredQuery) || isPending;
 
   return (
     <form role="search">
@@ -18,6 +19,7 @@ export default function Search() {
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
           const isFirstSearch = query === null;
+          setQuery(e.target.value);
           startTransition(() => {
             isFirstSearch
               ? router.push(`${pathName}?q=${e.target.value}`)
