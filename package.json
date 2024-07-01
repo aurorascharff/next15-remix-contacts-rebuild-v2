@@ -18,7 +18,6 @@
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "10.4.19",
-    "babel-plugin-react-compiler": "^0.0.0-experimental-938cd9a-20240601",
     "clsx": "^2.1.1",
     "eslint": "8.56.0",
     "eslint-config-next": "14.2.4",
