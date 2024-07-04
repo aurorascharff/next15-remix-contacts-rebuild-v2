@@ -19,15 +19,7 @@ export const getContactDedupe = cache(async (contactId: string) => {
 
 export const getContact = unstable_cache(
   async (contactId: string) => {
-    const contact = await prisma.contact.findUnique({
-      where: {
-        id: contactId,
-      },
-    });
-    if (!contact) {
-      notFound();
-    }
-    return contact;
+    return getContactDedupe(contactId);
   },
   ['contact'],
   {
