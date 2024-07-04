@@ -7,7 +7,6 @@ import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/co
 import { contactSchema } from '@/validations/contactSchema';
 
 type State = {
-  success?: boolean;
   data?: ContactSchemaType;
   errors?: ContactSchemaErrorType;
 };
@@ -20,7 +19,6 @@ export async function updateContact(contactId: string, _prevState: State, formDa
     return {
       data: contact as ContactSchemaType,
       errors: result.error.formErrors,
-      success: false,
     };
   }
 

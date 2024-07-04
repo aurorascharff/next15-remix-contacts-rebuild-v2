@@ -21,7 +21,6 @@ export default function ContactForm({ contact }: { contact: Contact }) {
       twitter: contact.twitter || '',
     },
     errors: {} as ContactSchemaErrorType,
-    success: false,
   });
 
   return (
