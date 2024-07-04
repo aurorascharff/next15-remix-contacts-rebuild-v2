@@ -1,4 +1,2 @@
-import SearchIcon from './SearchIcon';
-import SpinnerIcon from './SpinnerIcon';
-
-export { SpinnerIcon, SearchIcon };
+export { SpinnerIcon } from './SpinnerIcon';
+export { SearchIcon } from './SearchIcon';

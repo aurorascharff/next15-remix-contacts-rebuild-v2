@@ -5,7 +5,7 @@ type Props = {
   [otherProps: string]: unknown;
 };
 
-export default function SpinnerIcon({ className, ...otherProps }: Props) {
+export function SpinnerIcon({ className, ...otherProps }: Props) {
   return (
     <svg {...otherProps} className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path

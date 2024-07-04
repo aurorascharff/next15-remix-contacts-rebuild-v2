@@ -5,7 +5,7 @@ type Props = {
   [otherProps: string]: unknown;
 };
 
-export default function SearchIcon({ className, ...otherProps }: Props) {
+export function SearchIcon({ className, ...otherProps }: Props) {
   return (
     <svg
       {...otherProps}
