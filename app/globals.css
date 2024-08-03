@@ -12,6 +12,18 @@ input {
   @apply m-0 w-full rounded-lg border-none bg-white px-3 py-2 shadow-sm hover:shadow-md active:shadow-xs;
 }
 
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
 .pending {
   animation: progress 2s infinite ease-in-out;
   animation-delay: 200ms;
