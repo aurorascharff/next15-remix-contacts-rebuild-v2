@@ -12,17 +12,21 @@ input {
   @apply m-0 w-full rounded-lg border-none bg-white px-3 py-2 shadow-sm hover:shadow-md active:shadow-xs;
 }
 
-  h1 {
-    @apply text-3xl;
-  }
+h1 {
+  @apply text-3xl;
+}
 
-  h2 {
-    @apply text-2xl;
-  }
+h2 {
+  @apply text-2xl;
+}
 
-  h3 {
-    @apply text-xl;
-  }
+h3 {
+  @apply text-xl;
+}
+
+a {
+  @apply hover:underline;
+}
 
 .pending {
   animation: progress 2s infinite ease-in-out;
