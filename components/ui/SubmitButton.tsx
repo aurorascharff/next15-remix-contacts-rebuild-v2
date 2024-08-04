@@ -4,9 +4,10 @@ import React from 'react';
 import { useFormStatus } from 'react-dom';
 import Button from './Button';
 import { SpinnerIcon } from './icons';
+import type { button } from './Button';
+import type { VariantProps } from 'class-variance-authority';
 
 type Props = {
-  theme?: 'primary' | 'secondary' | 'destroy';
   children: React.ReactNode;
   className?: string;
   loading?: boolean;
@@ -14,12 +15,12 @@ type Props = {
 
 export default function SubmitButton({
   children,
-  theme = 'primary',
   loading,
   disabled,
   className,
+  theme,
   ...otherProps
-}: Props & React.HTMLProps<HTMLButtonElement>) {
+}: Props & React.HTMLProps<HTMLButtonElement> & VariantProps<typeof button>) {
   const { pending } = useFormStatus();
   const isSubmitting = pending || loading;
 
