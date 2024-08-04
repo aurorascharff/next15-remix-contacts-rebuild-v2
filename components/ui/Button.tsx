@@ -2,16 +2,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
 import { cn } from '@/utils/cn';
 
+const shadow = 'shadow-sm active:enabled:shadow-xs disabled:shadow-xs';
+
 export const button = cva('button', {
   defaultVariants: {
     theme: 'primary',
   },
   variants: {
     theme: {
-      destroy: ['bg-destroy text-white', 'hover:bg-destroy-dark active:bg-destroy-darker shadow-sm hover:shadow-md'],
-      ghost: ['bg-transparent text-primary', 'hover:bg-gray-light active:bg-gray-lighter'],
-      primary: ['bg-primary text-white', 'hover:bg-primary-dark active:bg-primary-darker shadow-sm hover:shadow-md'],
-      secondary: ['bg-white text-primary', 'hover:bg-gray-light active:bg-gray-lighter shadow-sm hover:shadow-md'],
+      destroy: ['bg-destroy', 'text-white', 'hover:enabled:bg-destroy-dark', 'disabled:bg-gray-dark', shadow],
+      ghost: ['bg-transparent', 'text-primary', 'hover:enabled:bg-gray-light', 'disabled:text-gray-dark'],
+      primary: ['bg-primary', 'text-white', 'hover:enabled:bg-primary-dark', 'disabled:bg-gray-dark', shadow],
+      secondary: ['bg-white', 'text-primary', 'hover:enabled:bg-gray-light', 'disabled:text-gray-dark', shadow],
     },
   },
 });
@@ -35,7 +37,7 @@ export default function Button({
       type={type}
       className={cn(
         button({ className, theme }),
-        'm-0 w-fit rounded-lg border-none px-3 py-2 font-medium active:shadow-xs active:enabled:translate-y-px disabled:translate-y-px disabled:shadow-xs',
+        'm-0 w-fit rounded-lg border-none px-3 py-2 font-medium active:enabled:translate-y-px disabled:translate-y-px',
       )}
     >
       {children}

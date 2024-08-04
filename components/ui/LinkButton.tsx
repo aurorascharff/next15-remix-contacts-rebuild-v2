@@ -5,16 +5,18 @@ import { cn } from '@/utils/cn';
 import type { VariantProps } from 'class-variance-authority';
 import type { LinkProps } from 'next/link';
 
+const shadow = 'shadow-sm active:enabled:shadow-xs disabled:shadow-xs';
+
 const linkButton = cva('button', {
   defaultVariants: {
-    theme: 'ghost',
+    theme: 'primary',
   },
   variants: {
     theme: {
-      destroy: ['bg-destroy text-white', 'hover:bg-destroy-dark active:bg-destroy-darker shadow-sm hover:shadow-md'],
-      ghost: ['bg-transparent text-primary', 'hover:bg-gray-light active:bg-gray-lighter'],
-      primary: ['bg-primary text-white', 'hover:bg-primary-dark active:bg-primary-darker shadow-sm hover:shadow-md'],
-      secondary: ['bg-white text-primary', 'hover:bg-gray-light active:bg-gray-lighter shadow-sm hover:shadow-md'],
+      destroy: ['bg-destroy', 'text-white', 'hover:bg-destroy-dark', shadow],
+      ghost: ['bg-transparent', 'text-primary', 'hover:bg-gray-light'],
+      primary: ['bg-primary', 'text-white', 'hover:bg-primary-dark', shadow],
+      secondary: ['bg-white', 'text-primary', 'hover:bg-gray-light', shadow],
     },
   },
 });
