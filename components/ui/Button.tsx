@@ -29,7 +29,7 @@ export default function Button({
       className={cn(
         colorClass,
         className,
-        'm-0 rounded-lg border-none px-3 py-2 font-medium shadow-sm hover:shadow-md active:shadow-xs active:enabled:translate-y-px disabled:translate-y-px disabled:shadow-xs',
+        'm-0 w-fit rounded-lg border-none px-3 py-2 font-medium shadow-sm hover:shadow-md active:shadow-xs active:enabled:translate-y-px disabled:translate-y-px disabled:shadow-xs',
       )}
     >
       {children}

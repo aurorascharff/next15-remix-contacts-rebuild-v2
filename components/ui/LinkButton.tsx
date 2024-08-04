@@ -23,7 +23,7 @@ export default function LinkButton({ children, href, theme = 'primary', ...other
       href={href}
       className={cn(
         colorClass,
-        'm-0 rounded-lg border-none px-3 py-2 font-medium no-underline shadow-sm hover:shadow-md active:shadow-xs',
+        'm-0 w-fit rounded-lg border-none px-3 py-2 font-medium no-underline shadow-sm hover:shadow-md active:shadow-xs',
       )}
     >
       {children}
