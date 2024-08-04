@@ -9,7 +9,7 @@ const shadow = 'shadow-sm active:enabled:shadow-xs disabled:shadow-xs';
 
 const linkButton = cva('button', {
   defaultVariants: {
-    theme: 'primary',
+    theme: 'secondary',
   },
   variants: {
     theme: {
