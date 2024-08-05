@@ -2,10 +2,9 @@ import React from 'react';
 
 type Props = {
   className?: string;
-  [otherProps: string]: unknown;
 };
 
-export function SpinnerIcon({ className, ...otherProps }: Props) {
+export function SpinnerIcon({ className, ...otherProps }: Props & React.SVGAttributes<SVGElement>) {
   return (
     <svg {...otherProps} className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <path

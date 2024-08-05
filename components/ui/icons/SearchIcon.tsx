@@ -2,10 +2,9 @@ import React from 'react';
 
 type Props = {
   className?: string;
-  [otherProps: string]: unknown;
 };
 
-export function SearchIcon({ className, ...otherProps }: Props) {
+export function SearchIcon({ className, ...otherProps }: Props & React.SVGAttributes<SVGElement>) {
   return (
     <svg
       {...otherProps}
