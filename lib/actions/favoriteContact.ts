@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { prisma } from '@/db';
+import { routes } from '@/validations/routeSchema';
 
 export async function favoriteContact(contactId: string, isFavorite: boolean) {
   await prisma.contact.update({
@@ -13,5 +14,5 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
     },
   });
   revalidateTag('contact');
-  revalidatePath('/');
+  revalidatePath(routes.home());
 }

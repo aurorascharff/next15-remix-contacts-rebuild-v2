@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { prisma } from '@/db';
 import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/contactSchema';
 import { contactSchema } from '@/validations/contactSchema';
+import { routes } from '@/validations/routeSchema';
 
 type State = {
   data?: ContactSchemaType;
@@ -29,7 +30,7 @@ export async function updateContact(contactId: string, _prevState: State, formDa
     },
   });
 
-  revalidatePath('/');
+  revalidatePath(routes.home());
   revalidateTag('contact');
-  redirect(`/contacts/${contactId}`);
+  redirect(routes.contactId({ contactId }));
 }
