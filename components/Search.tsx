@@ -1,14 +1,15 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useDeferredValue, useState } from 'react';
+import { useSafeSearchParams } from '@/validations/routeSchema';
 import { SearchIcon, SpinnerIcon } from './ui/icons';
 
 export default function Search() {
   const router = useRouter();
   const pathName = usePathname();
-  const searchParams = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get('q') || '');
+  const { q } = useSafeSearchParams('home');
+  const [query, setQuery] = useState(q);
   const deferredQuery = useDeferredValue(query);
   const searching = query !== deferredQuery;
 

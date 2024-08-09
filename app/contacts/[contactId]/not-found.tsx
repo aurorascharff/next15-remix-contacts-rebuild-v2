@@ -1,3 +1,5 @@
+import ErrorMessage from '@/components/ui/ErrorMessage';
+
 export default function NotFound() {
-  return <p>Not found</p>;
+  return <ErrorMessage>Could not find contact!</ErrorMessage>;
 }

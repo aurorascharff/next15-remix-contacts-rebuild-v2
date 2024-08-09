@@ -8,6 +8,7 @@ import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/lib/actions/createEmptyContact';
 import { getContacts } from '@/lib/services/getContacts';
 import Logo from '@/public/next-js.svg';
+import { routes } from '@/validations/routeSchema';
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -35,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
             <ContactList contacts={contacts} />
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
-              <Link className="flex items-center gap-2 text-black no-underline" href="/">
+              <Link className="flex items-center gap-2 text-black no-underline" href={routes.home()}>
                 <Image priority width={30} height={30} src={Logo} alt="" />
                 Contacts
               </Link>

@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import LinkButton from '@/components/ui/LinkButton';
 import { getContact } from '@/lib/services/getContact';
+import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
 import type { Metadata } from 'next';
 
 type PageProps = {
-  params: {
-    contactId: string;
-  };
+  params: unknown;
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const contact = await getContact(params.contactId);
+  const { contactId } = routes.contactId.$parseParams(params);
+  const contact = await getContact(contactId);
 
   return contact && contact.first && contact.last
     ? {
@@ -26,7 +26,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ContactPage({ params }: PageProps) {
-  const contact = await getContact(params.contactId);
+  const { contactId } = routes.contactId.$parseParams(params);
+  const contact = await getContact(contactId);
 
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
@@ -66,10 +67,10 @@ export default async function ContactPage({ params }: PageProps) {
         {contact.notes ? <p>{contact.notes}</p> : null}
 
         <div className="my-4 flex gap-2">
-          <LinkButton theme="secondary" href={`/contacts/${params.contactId}/edit`}>
+          <LinkButton theme="secondary" href={routes.contactIdEdit({ contactId })}>
             Edit
           </LinkButton>
-          <DeleteContactButton contactId={params.contactId} />
+          <DeleteContactButton contactId={contactId} />
         </div>
       </div>
     </div>

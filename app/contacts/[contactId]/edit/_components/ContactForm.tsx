@@ -7,6 +7,7 @@ import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
 import { updateContact } from '@/lib/actions/updateContact';
 import type { ContactSchemaErrorType } from '@/validations/contactSchema';
+import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
@@ -24,8 +25,8 @@ export default function ContactForm({ contact }: { contact: Contact }) {
   });
 
   return (
-    <form className="@container flex max-w-[40rem] flex-col gap-4" action={updateContactAction}>
-      <div className="grip-rows-5 @sm:grid-cols-[1fr_4fr] @sm:gap-4 grid grid-cols-1 gap-2">
+    <form className="flex max-w-[40rem] flex-col gap-4 @container" action={updateContactAction}>
+      <div className="grip-rows-5 grid grid-cols-1 gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
@@ -71,7 +72,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         />
       </div>
       <div className="flex gap-2 self-end">
-        <LinkButton theme="secondary" href={`/contacts/${contact.id}`}>
+        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id })}>
           Cancel
         </LinkButton>
         <SubmitButton theme="primary">Save</SubmitButton>
