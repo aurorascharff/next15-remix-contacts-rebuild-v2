@@ -1,46 +1,55 @@
 'use client';
 
-import React, { useActionState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
 import { updateContact } from '@/lib/actions/updateContact';
-import type { ContactSchemaErrorType } from '@/validations/contactSchema';
+import { contactSchema, type ContactSchemaType } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
-  const updateContactById = updateContact.bind(null, contact.id);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactSchemaType>({
+    mode: 'onChange',
+    resolver: zodResolver(contactSchema),
+    values: contact,
+  });
 
-  const [state, updateContactAction] = useActionState(updateContactById, {
-    data: {
-      avatar: contact.avatar || '',
-      first: contact.first || '',
-      last: contact.last || '',
-      notes: contact.notes || '',
-      twitter: contact.twitter || '',
-    },
-    errors: {} as ContactSchemaErrorType,
+  const onSubmit = handleSubmit(async data => {
+    const response = await updateContact(contact.id, data);
+    if (response?.error) {
+      toast.error(response.error);
+    } else {
+      toast.success('Contact updated');
+    }
   });
 
   return (
-    <form className="flex max-w-[40rem] flex-col gap-4 @container" action={updateContactAction}>
-      <div className="grip-rows-5 grid grid-cols-1 gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
+    <form className="flex max-w-[40rem] flex-col gap-4 @container" onSubmit={onSubmit}>
+      <div className="grip-rows-6 grid grid-cols-1 gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
-            errors={state.errors?.fieldErrors?.first}
-            defaultValue={state.data?.first || undefined}
+            {...register('first')}
+            error={errors.first?.message}
             aria-label="First name"
             name="first"
             type="text"
             placeholder="First"
           />
           <Input
-            errors={state.errors?.fieldErrors?.last}
+            {...register('last')}
+            error={errors.last?.message}
             aria-label="Last name"
-            defaultValue={state.data?.last || undefined}
             name="last"
             placeholder="Last"
             type="text"
@@ -48,34 +57,28 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         </div>
         <label htmlFor="github">Twitter</label>
         <Input
-          errors={state.errors?.fieldErrors?.twitter}
-          defaultValue={state.data?.twitter || undefined}
+          {...register('twitter')}
+          error={errors.twitter?.message}
           name="twitter"
           placeholder="@jack"
           type="text"
         />
         <label htmlFor="avatar">Avatar URL</label>
         <Input
-          errors={state.errors?.fieldErrors?.avatar}
-          defaultValue={state.data?.avatar || undefined}
+          {...register('avatar')}
+          error={errors.avatar?.message}
           name="avatar"
           placeholder="https://sessionize.com/image/example.jpg"
           type="text"
         />
         <label htmlFor="notes">Notes</label>
-        <TextArea
-          errors={state.errors?.fieldErrors?.notes}
-          className="grow"
-          defaultValue={state.data?.notes || undefined}
-          name="notes"
-          rows={6}
-        />
+        <TextArea {...register('notes')} error={errors.notes?.message} className="grow" name="notes" rows={6} />
       </div>
       <div className="flex gap-2 self-end">
         <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id })}>
           Cancel
         </LinkButton>
-        <SubmitButton theme="primary">Save</SubmitButton>
+        <SubmitButton loading={isSubmitting}>Save</SubmitButton>
       </div>
     </form>
   );

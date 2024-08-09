@@ -1,19 +1,15 @@
 import React from 'react';
 
 type Props = {
-  errors?: string[];
+  error?: string;
   name: string;
 };
 
-export default function TextArea({ errors, ...otherProps }: Props & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export default function TextArea({ error, ...otherProps }: Props & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <div>
-      <textarea
-        className={errors ? 'outline outline-2 outline-destroy' : ''}
-        aria-describedby="error"
-        {...otherProps}
-      />
-      {errors && <span className="font- text-destroy">{errors[0]}</span>}
+      <textarea className={error ? 'outline outline-2 outline-destroy' : ''} aria-describedby="error" {...otherProps} />
+      {error && <span className="font- text-destroy">{error}</span>}
     </div>
   );
 }
