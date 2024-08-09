@@ -30,7 +30,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
-            error={state.errors?.fieldErrors?.first}
+            errors={state.errors?.fieldErrors?.first}
             defaultValue={state.data?.first || undefined}
             aria-label="First name"
             name="first"
@@ -38,7 +38,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
             placeholder="First"
           />
           <Input
-            error={state.errors?.fieldErrors?.last}
+            errors={state.errors?.fieldErrors?.last}
             aria-label="Last name"
             defaultValue={state.data?.last || undefined}
             name="last"
@@ -48,7 +48,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         </div>
         <label htmlFor="github">Twitter</label>
         <Input
-          error={state.errors?.fieldErrors?.twitter}
+          errors={state.errors?.fieldErrors?.twitter}
           defaultValue={state.data?.twitter || undefined}
           name="twitter"
           placeholder="@jack"
@@ -56,7 +56,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         />
         <label htmlFor="avatar">Avatar URL</label>
         <Input
-          error={state.errors?.fieldErrors?.avatar}
+          errors={state.errors?.fieldErrors?.avatar}
           defaultValue={state.data?.avatar || undefined}
           name="avatar"
           placeholder="https://sessionize.com/image/example.jpg"
@@ -64,7 +64,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         />
         <label htmlFor="notes">Notes</label>
         <TextArea
-          error={state.errors?.fieldErrors?.notes}
+          errors={state.errors?.fieldErrors?.notes}
           className="grow"
           defaultValue={state.data?.notes || undefined}
           name="notes"
