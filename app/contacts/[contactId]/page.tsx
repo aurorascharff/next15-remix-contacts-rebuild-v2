@@ -5,7 +5,7 @@ type PageProps = {
   params: unknown;
 };
 
-export default async function ContactPage({ params }: PageProps) {
+export default function ContactPage({ params }: PageProps) {
   const { contactId } = routes.contactId.$parseParams(params);
 
   return <Contact contactId={contactId} />;
