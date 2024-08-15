@@ -1,4 +1,3 @@
-import { getContact } from '@/lib/services/getContact';
 import { routes } from '@/validations/routeSchema';
 import ContactForm from './_components/ContactForm';
 
@@ -8,7 +7,6 @@ type PageProps = {
 
 export default async function EditContactPage({ params }: PageProps) {
   const { contactId } = routes.contactIdEdit.$parseParams(params);
-  const contact = await getContact(contactId);
 
-  return <ContactForm contact={contact} />;
+  return <ContactForm contactId={contactId} />;
 }

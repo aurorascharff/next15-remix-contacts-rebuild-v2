@@ -3,34 +3,34 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
+import ErrorMessage from '@/components/ui/ErrorMessage';
 import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
-import { updateContact } from '@/lib/actions/updateContact';
+import useGetContact from '@/hooks/useGetContact';
+import useUpdateContact from '@/hooks/useUpdateContact';
 import { contactSchema, type ContactSchemaType } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
-import type { Contact } from '@prisma/client';
 
-export default function ContactForm({ contact }: { contact: Contact }) {
+export default function ContactForm({ contactId }: { contactId: string }) {
+  const { contact } = useGetContact(contactId);
+  const { mutate: updateContact, isPending } = useUpdateContact();
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ContactSchemaType>({
     mode: 'onChange',
     resolver: zodResolver(contactSchema),
     values: contact,
   });
+  if (!contact) {
+    return <ErrorMessage>Could not find contact!</ErrorMessage>;
+  }
 
   const onSubmit = handleSubmit(async data => {
-    const response = await updateContact(contact.id, data);
-    if (response?.error) {
-      toast.error(response.error);
-    } else {
-      toast.success('Contact updated');
-    }
+    updateContact({ ...contact, ...data });
   });
 
   return (
@@ -78,7 +78,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id })}>
           Cancel
         </LinkButton>
-        <SubmitButton loading={isSubmitting}>Save</SubmitButton>
+        <SubmitButton loading={isPending}>Save</SubmitButton>
       </div>
     </form>
   );

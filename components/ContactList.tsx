@@ -2,12 +2,17 @@
 
 import { matchSorter } from 'match-sorter';
 import React from 'react';
+import useGetContacts from '@/hooks/useGetContacts';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import ContactButton from './ContactButton';
-import type { Contact } from '@prisma/client';
+import Skeleton from './ui/Skeleton';
 
-export default function ContactList({ contacts }: { contacts: Contact[] }) {
+export default function ContactList() {
   const { q } = useSafeSearchParams('home');
+  const { data: contacts, isLoading } = useGetContacts();
+  if (!contacts) {
+    return;
+  }
 
   const filteredContacts = q
     ? matchSorter(contacts, q, {
@@ -17,7 +22,9 @@ export default function ContactList({ contacts }: { contacts: Contact[] }) {
 
   return (
     <nav className="flex-1 overflow-auto px-8 py-4">
-      {filteredContacts.length ? (
+      {isLoading ? (
+        <Skeleton />
+      ) : filteredContacts.length ? (
         <ul>
           {filteredContacts.map(contact => {
             return (
