@@ -9,7 +9,7 @@ import type { Contact } from '@prisma/client';
 
 export default function ContactButton({ contact }: { contact: Contact }) {
   const pathName = usePathname();
-  const isActive = pathName.includes(`/contacts/${contact.id}`);
+  const isActive = pathName.includes(routes.contactId({ contactId: contact.id }));
   const { q } = useSafeSearchParams('home');
 
   return (
