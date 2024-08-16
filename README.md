@@ -1,4 +1,4 @@
-# React Server Components and React 19 in thr Next.js App Router
+# Next.js 15 "Remix Contacts" Rebuild V2
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
