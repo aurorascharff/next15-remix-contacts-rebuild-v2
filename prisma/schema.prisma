@@ -12,14 +12,31 @@ datasource db {
 }
 
 model Contact {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   first     String?
   last      String?
   avatar    String?
   email     String?
   twitter   String?
-  favorite  Boolean  @default(false)
+  favorite  Boolean   @default(false)
   notes     String?
+  Message   Message[]
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  contact     Contact  @relation(fields: [contactId], references: [id])
+  contactId   String
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById String
+  content     String
+}
+
+model User {
+  id      String    @id @default(uuid())
+  name    String
+  Message Message[]
 }
