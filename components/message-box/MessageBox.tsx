@@ -18,7 +18,7 @@ export default async function MessageBox({ contactId }: Props) {
     <details className="group flex flex-col rounded-t-lg border border-gray bg-white shadow-xl">
       <summary className="flex items-center justify-between gap-4 rounded-t-lg border-b border-gray bg-white px-4 py-1 text-lg font-bold text-primary hover:bg-gray-light group-open:py-3">
         Messages
-        <div className="transform transition-transform group-open:rotate-180">
+        <div className="hidden transform pb-[1px] transition-transform group-open:rotate-180 sm:flex">
           <span className="flex text-2xl group-open:hidden">+</span>
           <span className="hidden text-2xl group-open:flex">-</span>
         </div>
