@@ -8,7 +8,7 @@ import MessageInput from './MessageInput';
 import type { Contact, Message, User } from '@prisma/client';
 
 type Props = {
-  contact: Contact;
+  contactPromise: Promise<Contact>;
   messagesPromise: Promise<Message[]>;
   userPromise: Promise<User>;
 };
@@ -17,9 +17,10 @@ export type OptimisticMessage = Message & {
   isSending?: boolean;
 };
 
-export default function Messages({ contact, messagesPromise, userPromise }: Props) {
+export default function Messages({ contactPromise, messagesPromise, userPromise }: Props) {
   const messages = use(messagesPromise);
   const user = use(userPromise);
+  const contact = use(contactPromise);
 
   const [optimisticMessages, addOptimisticMessage] = useOptimistic(
     messages,
