@@ -28,7 +28,7 @@ model Contact {
 model Message {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now())
-  contact     Contact  @relation(fields: [contactId], references: [id])
+  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
   contactId   String
   createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String
