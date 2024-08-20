@@ -39,6 +39,7 @@ export default function Contact({ contactId }: { contactId: string }) {
         <div>
           {contact.avatar && (
             <Image
+              priority
               width={192}
               height={192}
               className="mr-8 rounded-3xl bg-gray object-cover"
