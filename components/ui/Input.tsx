@@ -5,10 +5,15 @@ type Props = {
   name: string;
 };
 
-export default function Input({ errors, ...otherProps }: Props & React.InputHTMLAttributes<HTMLInputElement>) {
+export default function Input({ errors, name, ...otherProps }: Props & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div className="w-full">
-      <input className={errors ? 'outline outline-2 outline-destroy' : ''} aria-describedby="error" {...otherProps} />
+      <input
+        id={name}
+        className={errors ? 'outline outline-2 outline-destroy' : ''}
+        aria-describedby="error"
+        {...otherProps}
+      />
       {errors && <span className="text-destroy">{errors[0]}</span>}
     </div>
   );

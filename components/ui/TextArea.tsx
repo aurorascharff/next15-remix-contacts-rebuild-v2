@@ -5,10 +5,15 @@ type Props = {
   name: string;
 };
 
-export default function TextArea({ errors, ...otherProps }: Props & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export default function TextArea({
+  errors,
+  name,
+  ...otherProps
+}: Props & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <div>
       <textarea
+        id={name}
         className={errors ? 'outline outline-2 outline-destroy' : ''}
         aria-describedby="error"
         {...otherProps}
