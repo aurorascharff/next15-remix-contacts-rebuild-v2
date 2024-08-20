@@ -14,6 +14,7 @@ export default function TextArea({
     <div>
       <textarea
         id={name}
+        name={name}
         className={errors ? 'outline outline-2 outline-destroy' : ''}
         aria-describedby="error"
         {...otherProps}

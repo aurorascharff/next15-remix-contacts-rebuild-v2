@@ -10,6 +10,7 @@ export default function Input({ errors, name, ...otherProps }: Props & React.Inp
     <div className="w-full">
       <input
         id={name}
+        name={name}
         className={errors ? 'outline outline-2 outline-destroy' : ''}
         aria-describedby="error"
         {...otherProps}
