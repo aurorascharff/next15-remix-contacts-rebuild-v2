@@ -16,8 +16,8 @@ const config: Config = {
       },
       colors: {
         destroy: {
-          DEFAULT: '#f44250',
-          dark: '#cc3740',
+          DEFAULT: '#d11433',
+          dark: '#b62f37',
           light: '#ff6d79',
         },
         gray: {

@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <ContactList />
               <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
                 <Link className="flex items-center gap-2 text-black no-underline" href={routes.home()}>
-                  <Image priority width={30} height={30} src={Logo} alt="" />
+                  <Image priority width={30} height={30} src={Logo} alt="Next.js logo" />
                   Contacts
                 </Link>
               </div>

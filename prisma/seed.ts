@@ -1,11 +1,35 @@
 import { PrismaClient } from '@prisma/client';
+import type { User } from '@prisma/client';
 
 const prisma = new PrismaClient();
+
+const USERS: User[] = [
+  {
+    id: '2bccacd4-64de-4f1d-97ed-9722cdf99cd9',
+    name: 'Jane Doe',
+  },
+  {
+    id: '3ea4ae6c-adda-40eb-b254-9cfe0c8e8113',
+    name: 'John Doe',
+  },
+];
+
+const MESSAGES = [
+  {
+    contactId: 'f7844ef5-ec9d-4250-8f38-d09bb0a8bc30',
+    content: 'Hello!',
+    createdById: '3ea4ae6c-adda-40eb-b254-9cfe0c8e8113',
+  },
+  {
+    contactId: '63ee8a68-12b2-4833-ac44-9806c4f4147e',
+    content: 'Hi!',
+    createdById: '3ea4ae6c-adda-40eb-b254-9cfe0c8e8113',
+  },
+];
 
 const CONTACTS = [
   {
     avatar: 'https://sessionize.com/image/124e-400o400o2-wHVdAuNaxi8KJrgtN3ZKci.jpg',
-    favorite: true,
     first: 'Shruti',
     last: 'Kapoor',
     twitter: '@shrutikapoor08',
@@ -52,7 +76,9 @@ const CONTACTS = [
   },
   {
     avatar: 'https://sessionize.com/image/df38-400o400o2-JwbChVUj6V7DwZMc9vJEHc.jpg',
+    favorite: true,
     first: 'Alex',
+    id: 'f7844ef5-ec9d-4250-8f38-d09bb0a8bc30',
     last: 'Anderson',
     twitter: '@ralex1993',
   },
@@ -151,7 +177,9 @@ const CONTACTS = [
   },
   {
     avatar: 'https://sessionize.com/image/eec1-400o400o2-HkvWKLFqecmFxLwqR9KMRw.jpg',
+    favorite: true,
     first: 'Andre',
+    id: '63ee8a68-12b2-4833-ac44-9806c4f4147e',
     last: 'Landgraf',
     twitter: '@AndreLandgraf94',
   },
@@ -187,13 +215,15 @@ const CONTACTS = [
   },
 ];
 
-function seedContacts() {
-  Promise.all(
+async function seedContacts() {
+  await Promise.all(
     CONTACTS.map(n => {
       return prisma.contact.create({
         data: {
           avatar: n.avatar,
+          favorite: n.favorite,
           first: n.first,
+          id: n.id,
           last: n.last,
           twitter: n.twitter,
         },
@@ -205,6 +235,32 @@ function seedContacts() {
     })
     .catch(e => {
       return console.error('[SEED] Failed to create contact records', e);
+    });
+
+  await Promise.all(
+    USERS.map(n => {
+      return prisma.user.create({ data: { id: n.id, name: n.name } });
+    }),
+  )
+    .then(() => {
+      return console.info('[SEED] Succussfully create user records');
+    })
+    .catch(e => {
+      return console.error('[SEED] Failed to create user records', e);
+    });
+
+  await Promise.all(
+    MESSAGES.map(n => {
+      return prisma.message.create({
+        data: { contactId: n.contactId, content: n.content, createdById: n.createdById },
+      });
+    }),
+  )
+    .then(() => {
+      return console.info('[SEED] Succussfully create user records');
+    })
+    .catch(e => {
+      return console.error('[SEED] Failed to create user records', e);
     });
 }
 
