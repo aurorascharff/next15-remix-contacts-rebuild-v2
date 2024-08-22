@@ -28,23 +28,6 @@ a {
   @apply hover:underline;
 }
 
-.pending {
-  animation: progress 2s infinite ease-in-out;
-  animation-delay: 200ms;
-}
-
-@keyframes progress {
-  0% {
-    background: #e3e3e3;
-  }
-  50% {
-    background: hsla(224, 98%, 58%, 0.5);
-  }
-  100% {
-    background: #e3e3e3;
-  }
-}
-
 .skeleton-animation {
   background: rgba(130, 130, 130, 0.2);
   background: -webkit-gradient(
