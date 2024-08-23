@@ -19,7 +19,7 @@ export default function Search() {
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
           setQuery(e.target.value);
-          router.push(`${pathName}?q=${e.target.value}`);
+          router.replace(`${pathName}?q=${e.target.value}`);
         }}
         defaultValue={query}
         aria-label="Search contacts"
