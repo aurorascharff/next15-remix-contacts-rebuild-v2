@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import React, { useDeferredValue, useState } from 'react';
+import React, { useTransition } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import { SearchIcon, SpinnerIcon } from './ui/icons';
 
@@ -9,19 +9,18 @@ export default function Search() {
   const router = useRouter();
   const pathName = usePathname();
   const { q } = useSafeSearchParams('home');
-  const [query, setQuery] = useState(q);
-  const deferredQuery = useDeferredValue(query);
-  const searching = query !== deferredQuery;
+  const [searching, startTransition] = useTransition();
 
   return (
     <form role="search">
       <input
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
-          setQuery(e.target.value);
-          router.replace(`${pathName}?q=${e.target.value}`);
+          startTransition(() => {
+            router.replace(`${pathName}?q=${e.target.value}`);
+          });
         }}
-        defaultValue={query}
+        defaultValue={q}
         aria-label="Search contacts"
         name="q"
         placeholder="Search"
