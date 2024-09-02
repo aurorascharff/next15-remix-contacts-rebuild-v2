@@ -1,13 +1,12 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useTransition } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import { SearchIcon, SpinnerIcon } from './ui/icons';
 
 export default function Search() {
   const router = useRouter();
-  const pathName = usePathname();
   const { q } = useSafeSearchParams('home');
   const [searching, startTransition] = useTransition();
 
@@ -17,7 +16,7 @@ export default function Search() {
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
           startTransition(() => {
-            router.replace(`${pathName}?q=${e.target.value}`);
+            router.replace(`?q=${e.target.value}`);
           });
         }}
         defaultValue={q}
