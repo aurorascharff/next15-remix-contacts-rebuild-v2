@@ -8,7 +8,7 @@ import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
-import { updateContact } from '@/lib/actions/updateContact';
+import { updateContact } from '@/data/actions/updateContact';
 import { contactSchema, type ContactSchemaType } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';

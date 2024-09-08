@@ -22,7 +22,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["autofix", "react-hooks", "sort-keys-fix"],
+  "plugins": ["autofix", "react-hooks", "sort-keys-fix", "eslint-plugin-react-compiler"],
   "rules": {
     "sort-keys-fix/sort-keys-fix": "warn"
   },
@@ -30,6 +30,7 @@
     {
       "files": ["**/*.ts?(x)"],
       "rules": {
+        "react-compiler/react-compiler": "error",
         "react/react-in-jsx-scope": "off",
         "spaced-comment": "warn",
         "quotes": ["warn", "single"],

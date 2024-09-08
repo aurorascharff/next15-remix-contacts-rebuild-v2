@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useTransition } from 'react';
-import { favoriteContact } from '@/lib/actions/favoriteContact';
+import { favoriteContact } from '@/data/actions/favoriteContact';
 import { useContacts } from '@/providers/ContactsProvider';
 import { cn } from '@/utils/cn';
 import type { Contact } from '@prisma/client';
