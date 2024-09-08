@@ -8,7 +8,7 @@ import ContactList from '@/components/ContactList';
 import NewContactButton from '@/components/NewContactButton';
 import Search from '@/components/Search';
 import { queryKeys } from '@/contants/queryKeys';
-import { getContacts } from '@/lib/services/getContacts';
+import { getContacts } from '@/data/services/getContacts';
 import QueryProvider from '@/providers/QueryProvider';
 import Logo from '@/public/next-js.svg';
 import { routes } from '@/validations/routeSchema';

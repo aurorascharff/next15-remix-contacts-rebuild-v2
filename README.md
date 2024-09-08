@@ -90,7 +90,7 @@ With Next.js, the folder structure is very important. The following folders are 
 - For each route inside `/app` that is meant to be a route, there should be a `page.tsx` and alternatively `layout.tsx` for the route.
 - Each route can also have a `error.tsx` page for error handling, and a `not-found.tsx` page for handling 404 errors.
 - `/components` - contains shared components used across the application, same goes for the other folders in `/`.
-- `/lib` - contains server-side data fetching and mutations.
+- `/data` - contains server-side data fetching and mutations.
 - For each route, `_components` can be used to store components that are only used in that route. Same goes for `_hooks`, `_utils`, etc. Every page folder should contain everything it needs to work. And every component or function should live at the nearest shared space in the hierarchy.
 
 Refer to the [Next.js 13 App Router](https://nextjs.org/docs/app) documentation for more information.
@@ -109,7 +109,9 @@ Use the `cn` util when merging conditional classes with other classes. Excess st
 
 ### Data Fetching and Mutation
 
-Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/lib` folder, where `/lib/services` are server-side data fetches and `/lib/actions` are mutations. For more information, refer to the [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
+Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/data` folder, where `/lib/services` are server-side data fetches and `/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
+
+For more information, refer to the [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
 
 When using a form with an action, the loading state is included in the `SubmitButton`-component, and the form is disabled while the action is pending. For other cases, a loading state can be passed to to submit button or other components to handle the loading state.
 
