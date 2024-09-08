@@ -93,7 +93,7 @@ With Next.js, the folder structure is very important. The following folders are 
 - `/data` - contains server-side data fetching and mutations.
 - For each route, `_components` can be used to store components that are only used in that route. Same goes for `_hooks`, `_utils`, etc. Every page folder should contain everything it needs to work. And every component or function should live at the nearest shared space in the hierarchy.
 
-Refer to the [Next.js 13 App Router](https://nextjs.org/docs/app) documentation for more information.
+Refer to the [Next.js App Router](https://nextjs.org/docs/app) documentation for more information.
 
 ### Routing
 
