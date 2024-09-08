@@ -109,7 +109,7 @@ Use the `cn` util when merging conditional classes with other classes. Excess st
 
 ### Data Fetching and Mutation
 
-Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/data` folder, where `/lib/services` are server-side data fetches and `/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
+Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/data` folder, where `/data/services` are server-side data fetches and `/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
 
 For more information, refer to the [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
 
