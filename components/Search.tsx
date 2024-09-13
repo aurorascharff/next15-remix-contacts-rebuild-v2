@@ -16,7 +16,7 @@ export default function Search() {
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
           startTransition(() => {
-            router.replace(`?q=${e.target.value}`);
+            router.push(`?q=${e.target.value}`);
           });
         }}
         defaultValue={q}
