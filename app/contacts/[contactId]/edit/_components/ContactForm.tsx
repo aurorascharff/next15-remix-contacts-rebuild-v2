@@ -12,14 +12,13 @@ import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
   const updateContactById = updateContact.bind(null, contact.id);
-
   const [state, updateContactAction] = useActionState(updateContactById, {
     data: {
-      avatar: contact.avatar || '',
-      first: contact.first || '',
-      last: contact.last || '',
-      notes: contact.notes || '',
-      twitter: contact.twitter || '',
+      avatar: contact.avatar,
+      first: contact.first,
+      last: contact.last,
+      notes: contact.notes,
+      twitter: contact.twitter,
     },
     errors: {} as ContactSchemaErrorType,
   });

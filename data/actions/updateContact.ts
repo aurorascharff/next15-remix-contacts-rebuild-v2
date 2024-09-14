@@ -12,13 +12,13 @@ type State = {
   errors?: ContactSchemaErrorType;
 };
 
-export async function updateContact(contactId: string, _prevState: State, formData: FormData): Promise<State> {
-  const contact = Object.fromEntries(formData);
-  const result = contactSchema.safeParse(contact);
+export async function updateContact(contactId: string, _prevState: State, formData: FormData) {
+  const data = Object.fromEntries(formData);
+  const result = contactSchema.safeParse(data);
 
   if (!result.success) {
     return {
-      data: contact as ContactSchemaType,
+      data: data as ContactSchemaType,
       errors: result.error.formErrors,
     };
   }
