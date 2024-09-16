@@ -45,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </div>
               <div className="flex border-t border-t-gray sm:hidden" />
             </div>
-            <div className="w-full flex-1 px-16 py-8">{children}</div>
+            <div className="h-2/3 w-full flex-1 px-16 py-8 sm:h-auto">{children}</div>
           </div>
         </ContactsProvider>
       </body>
