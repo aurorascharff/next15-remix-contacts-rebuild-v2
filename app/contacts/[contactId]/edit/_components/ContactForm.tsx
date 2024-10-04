@@ -45,7 +45,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
             type="text"
           />
         </div>
-        <label htmlFor="github">Twitter</label>
+        <label htmlFor="twitter">Twitter</label>
         <Input
           errors={state.errors?.fieldErrors?.twitter}
           defaultValue={state.data?.twitter || undefined}
