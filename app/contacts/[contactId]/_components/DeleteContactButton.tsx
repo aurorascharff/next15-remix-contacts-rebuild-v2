@@ -2,7 +2,7 @@
 
 import React, { useTransition } from 'react';
 import SubmitButton from '@/components/ui/SubmitButton';
-import { deleteContact } from '@/data/actions/deleteContact';
+import { deleteContact } from '@/data/actions/contact';
 
 export default function DeleteContactButton({ contactId }: { contactId: string }) {
   const deleteContactById = deleteContact.bind(null, contactId);

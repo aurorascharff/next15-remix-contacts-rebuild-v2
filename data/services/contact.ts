@@ -26,3 +26,9 @@ export const getContact = unstable_cache(
     tags: ['contact'],
   },
 );
+
+export async function getContacts() {
+  return prisma.contact.findMany({
+    orderBy: [{ first: 'asc' }, { last: 'asc' }],
+  });
+}

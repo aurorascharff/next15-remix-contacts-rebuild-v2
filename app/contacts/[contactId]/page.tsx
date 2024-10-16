@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import LinkButton from '@/components/ui/LinkButton';
-import { getContact } from '@/data/services/getContact';
+import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';

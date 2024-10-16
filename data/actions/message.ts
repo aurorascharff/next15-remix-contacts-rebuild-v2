@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { prisma } from '@/db';
-import { getCurrentUser } from '../services/getCurrentUser';
+import { getCurrentUser } from '../services/user';
 
 const messageSchema = z.object({
   contactId: z.string().uuid({

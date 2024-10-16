@@ -1,4 +1,4 @@
-import { getContact } from '@/data/services/getContact';
+import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import ContactForm from './_components/ContactForm';
 
