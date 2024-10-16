@@ -109,7 +109,7 @@ Use the `cn` util when merging conditional classes with other classes. Excess st
 
 ### Data Fetching and Mutation
 
-The project uses [Prisma](https://www.prisma.io/) for data fetching. Mutations are done using React Server Functions, skipping the Next.js 12 `/api` convention. Files are stores inside the `src/data` folder, where `src/data/services` are server-side data queries and `src/data/actions` are mutations.
+The project uses [Prisma](https://www.prisma.io/) for data fetching. Mutations are done using React Server Functions, skipping the Next.js 12 `/api` convention. Files are stores inside the `src/data` folder, where `src/data/services` are server-side data queries and `src/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
 
 For more information, refer to the [React Server Functions](https://19.react.dev/reference/rsc/server-functions) and [Next.js Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
 
