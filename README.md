@@ -109,9 +109,9 @@ Use the `cn` util when merging conditional classes with other classes. Excess st
 
 ### Data Fetching and Mutation
 
-Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/data` folder, where `/data/services` are server-side data fetches and `/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
+The project uses [Prisma](https://www.prisma.io/) for data fetching. Mutations are done using React Server Functions, skipping the Next.js 12 `/api` convention. Files are stores inside the `src/data` folder, where `src/data/services` are server-side data queries and `src/data/actions` are mutations.
 
-For more information, refer to the [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
+For more information, refer to the [React Server Functions](https://19.react.dev/reference/rsc/server-functions) and [Next.js Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
 
 When using a form with an action, the loading state is included in the `SubmitButton`-component, and the form is disabled while the action is pending. For other cases, a loading state can be passed to to submit button or other components to handle the loading state.
 
