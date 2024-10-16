@@ -25,7 +25,7 @@ export default function Search() {
         placeholder="Search"
         type="search"
       />
-      <div aria-hidden className="absolute left-10 top-7">
+      <div aria-hidden="true" className="absolute left-10 top-7">
         {searching ? (
           <div className="h-fit w-fit animate-spin">
             <SpinnerIcon width={16} height={16} className="text-gray-dark" />
