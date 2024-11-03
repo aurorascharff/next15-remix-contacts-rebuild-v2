@@ -7,12 +7,12 @@ import Favorite from './_components/Favorite';
 import type { Metadata } from 'next';
 
 type PageProps = {
-  params: unknown;
+  params: Promise<unknown>;
 };
 
 // In local development, the `generateMetadata` will not be streamed and will block the page until it resolves, hindering the suspense boundary from showing.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { contactId } = routes.contactId.$parseParams(params);
+  const { contactId } = routes.contactId.$parseParams(await params);
   const contact = await getContact(contactId);
 
   return contact && contact.first && contact.last
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ContactPage({ params }: PageProps) {
-  const { contactId } = routes.contactId.$parseParams(params);
+  const { contactId } = routes.contactId.$parseParams(await params);
   const contact = await getContact(contactId);
 
   return (

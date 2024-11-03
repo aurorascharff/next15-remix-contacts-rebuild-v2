@@ -4,11 +4,11 @@ import { routes } from '@/validations/routeSchema';
 
 type Props = {
   children: React.ReactNode;
-  params: unknown;
+  params: Promise<unknown>;
 };
 
 export default async function ContactsLayout({ children, params }: Props) {
-  const { contactId } = routes.contactId.$parseParams(params);
+  const { contactId } = routes.contactId.$parseParams(await params);
 
   return (
     <>
