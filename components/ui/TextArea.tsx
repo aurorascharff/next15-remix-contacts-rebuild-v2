@@ -19,7 +19,7 @@ export default function TextArea({
         aria-describedby="error"
         {...otherProps}
       />
-      {errors && <span className="font- text-destroy">{errors[0]}</span>}
+      {errors && <span className="text-destroy">{errors[0]}</span>}
     </div>
   );
 }
