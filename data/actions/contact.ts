@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/db';
 import type { ContactSchemaType, ContactSchemaErrorType } from '@/validations/contactSchema';
@@ -11,7 +11,6 @@ export async function createEmptyContact() {
   const contact = await prisma.contact.create({
     data: {},
   });
-  revalidatePath(routes.home());
   redirect(routes.contactIdEdit({ contactId: contact.id }));
 }
 
@@ -38,8 +37,6 @@ export async function updateContact(contactId: string, _prevState: State, formDa
     },
   });
 
-  revalidatePath(routes.home());
-  revalidateTag('contact');
   redirect(routes.contactId({ contactId }));
 }
 
@@ -52,7 +49,6 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
       id: contactId,
     },
   });
-  revalidateTag('contact');
   revalidatePath(routes.home());
 }
 
@@ -63,6 +59,5 @@ export async function deleteContact(contactId: string) {
     },
   });
 
-  revalidatePath(routes.home());
   redirect(routes.home());
 }

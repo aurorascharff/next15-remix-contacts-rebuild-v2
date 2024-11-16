@@ -1,11 +1,11 @@
 import 'server-only';
 
-import { unstable_cache } from 'next/cache';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { prisma } from '@/db';
 
-export const getContactDedupe = cache(async (contactId: string) => {
+// The function getContact is called multiple times in the same render. Therefore, it has been per-render cached with React cache.
+export const getContact = cache(async (contactId: string) => {
   const contact = await prisma.contact.findUnique({
     where: {
       id: contactId,
@@ -16,16 +16,6 @@ export const getContactDedupe = cache(async (contactId: string) => {
   }
   return contact;
 });
-
-export const getContact = unstable_cache(
-  async (contactId: string) => {
-    return getContactDedupe(contactId);
-  },
-  ['contact'],
-  {
-    tags: ['contact'],
-  },
-);
 
 export async function getContacts() {
   return prisma.contact.findMany({
