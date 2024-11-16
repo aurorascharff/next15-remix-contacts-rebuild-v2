@@ -25,7 +25,7 @@
     "eslint": "8.56.0",
     "eslint-config-next": "14.2.5",
     "match-sorter": "^6.3.4",
-    "next": "^15.0.2",
+    "next": "^15.0.4-canary.13",
     "next-safe-navigation": "^0.3.2",
     "postcss": "^8.4.41",
     "react": "19.0.0-rc-f994737d14-20240522",
