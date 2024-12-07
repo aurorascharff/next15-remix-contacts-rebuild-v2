@@ -38,7 +38,6 @@ const eslintConfig = [
   {
     languageOptions: {
       ecmaVersion: 12,
-
       globals: {
         ...globals.browser,
       },
@@ -99,7 +98,6 @@ const eslintConfig = [
       quotes: ['warn', 'single'],
       'react-compiler/react-compiler': 'error',
       'react/display-name': 'error',
-
       'react/jsx-key': 'warn',
       'react/react-in-jsx-scope': 'off',
       'react/self-closing-comp': [
