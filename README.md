@@ -14,10 +14,10 @@ See branches `react-hook-form` and `react-query` for modified app versions.
 
 ## Usage
 
-First, force install the dependencies to make the React 19 Beta work:
+First, install the dependencies:
 
 ```bash
-npm install --force
+npm install
 ```
 
 Then, run the development server:
