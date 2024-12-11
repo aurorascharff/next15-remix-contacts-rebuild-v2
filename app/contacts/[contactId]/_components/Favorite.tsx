@@ -1,19 +1,21 @@
 'use client';
 
-import React, { useOptimistic, useTransition } from 'react';
+import React, { useTransition } from 'react';
 import { favoriteContact } from '@/data/actions/contact';
+import { useContacts } from '@/providers/ContactsProvider';
 import { cn } from '@/utils/cn';
 import type { Contact } from '@prisma/client';
 
 export default function Favorite({ contact }: { contact: Contact }) {
   const favoriteContactById = favoriteContact.bind(null, contact.id, contact.favorite);
-  const [optimisticFavorite, setOptimisticFavorite] = useOptimistic(contact.favorite);
+  const { getOptimisticContact, setOptimisticContacts } = useContacts();
   const [, startTransition] = useTransition();
+  const optimisticFavorite = getOptimisticContact(contact.id).favorite;
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     startTransition(async () => {
-      setOptimisticFavorite(!optimisticFavorite);
+      setOptimisticContacts({ payload: { ...contact, favorite: !optimisticFavorite }, type: 'update' });
       await favoriteContactById();
     });
   };
@@ -30,7 +32,6 @@ export default function Favorite({ contact }: { contact: Contact }) {
       >
         {optimisticFavorite ? '★' : '☆'}
       </button>
-      <input type="hidden" name="favorite" value={optimisticFavorite.toString()} />
     </form>
   );
 }
