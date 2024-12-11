@@ -33,10 +33,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <div className="flex items-center gap-2 border-b border-gray px-8 py-4">
               <Suspense>
                 <Search />
-                <form action={createEmptyContact}>
-                  <SubmitButton theme="secondary">New</SubmitButton>
-                </form>
               </Suspense>
+              <form action={createEmptyContact}>
+                <SubmitButton theme="secondary">New</SubmitButton>
+              </form>
             </div>
             <Suspense fallback={<Skeleton className="flex grow flex-col p-4" />}>
               <ContactList contactsPromise={contacts} />
