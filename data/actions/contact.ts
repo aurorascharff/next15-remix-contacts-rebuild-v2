@@ -1,8 +1,8 @@
 'use server';
 
-import { expireTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { expirationKeys } from '@/constants/expirationKeys';
+import { revalidationKeys } from '@/constants/revalidationKeys';
 import { prisma } from '@/db';
 import type { ContactSchemaType, ContactSchemaErrorType } from '@/validations/contactSchema';
 import { contactSchema } from '@/validations/contactSchema';
@@ -12,7 +12,7 @@ export async function createEmptyContact() {
   const contact = await prisma.contact.create({
     data: {},
   });
-  expireTag(expirationKeys.contacts);
+  revalidateTag(revalidationKeys.contacts);
   redirect(routes.contactIdEdit({ contactId: contact.id }));
 }
 
@@ -39,8 +39,8 @@ export async function updateContact(contactId: string, _prevState: State, formDa
     },
   });
 
-  expireTag(expirationKeys.contacts);
-  expireTag(expirationKeys.contact(contactId));
+  revalidateTag(revalidationKeys.contacts);
+  revalidateTag(revalidationKeys.contact(contactId));
   redirect(routes.contactId({ contactId }));
 }
 
@@ -53,8 +53,8 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
       id: contactId,
     },
   });
-  expireTag(expirationKeys.contacts);
-  expireTag(expirationKeys.contact(contactId));
+  revalidateTag(revalidationKeys.contacts);
+  revalidateTag(revalidationKeys.contact(contactId));
 }
 
 export async function deleteContact(contactId: string) {
@@ -64,6 +64,6 @@ export async function deleteContact(contactId: string) {
     },
   });
 
-  expireTag(expirationKeys.contacts);
+  revalidateTag(revalidationKeys.contacts);
   redirect(routes.home());
 }

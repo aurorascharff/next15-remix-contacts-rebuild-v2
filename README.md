@@ -14,20 +14,16 @@ See branches `react-hook-form` and `react-query` for modified app versions.
 
 ## Usage
 
-First, force install the dependencies to make the React 19 Beta work:
+First, install the dependencies:
 
 ```bash
-npm install --force
+npm install
 ```
 
 Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -49,7 +45,7 @@ When using sqlserver, you need to migrate the database schema with:
 npm run prisma.migrate
 ```
 
-When using sqllite, initialize with:
+When using sqlite, initialize with:
 
 ```bash
 npm run prisma.push

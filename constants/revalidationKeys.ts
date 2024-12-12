@@ -1,4 +1,4 @@
-export const expirationKeys = {
+export const revalidationKeys = {
   contact: (contactId: string) => {
     return `contact-${contactId}`;
   },

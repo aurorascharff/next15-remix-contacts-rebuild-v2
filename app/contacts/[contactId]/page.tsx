@@ -1,5 +1,8 @@
+import { cacheTag } from 'next/dist/server/use-cache/cache-tag';
 import Image from 'next/image';
+import { connection } from 'next/server';
 import LinkButton from '@/components/ui/LinkButton';
+import { revalidationKeys } from '@/constants/revalidationKeys';
 import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
@@ -12,7 +15,10 @@ type PageProps = {
 
 // In local development, the `generateMetadata` will not be streamed and will block the page until it resolves, hindering the suspense boundary from showing.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  await connection();
+
   const { contactId } = routes.contactId.$parseParams(await params);
+  cacheTag(revalidationKeys.contact(contactId));
   const contact = await getContact(contactId);
 
   return contact && contact.first && contact.last
@@ -27,6 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ContactPage({ params }: PageProps) {
+  await connection();
+
   const { contactId } = routes.contactId.$parseParams(await params);
   const contact = await getContact(contactId);
 
