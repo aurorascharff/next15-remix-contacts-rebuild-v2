@@ -17,8 +17,11 @@ export const getContact = cache(async (contactId: string) => {
   return contact;
 });
 
-export async function getContacts() {
+export async function getContacts(query?: string) {
   return prisma.contact.findMany({
     orderBy: [{ first: 'asc' }, { last: 'asc' }],
+    where: {
+      OR: [{ first: { contains: query } }, { last: { contains: query } }],
+    },
   });
 }

@@ -3,12 +3,9 @@ import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import ContactList from '@/components/ContactList';
 import Search from '@/components/Search';
-import Skeleton from '@/components/ui/Skeleton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import { createEmptyContact } from '@/data/actions/contact';
-import { getContacts } from '@/data/services/contact';
 import Logo from '@/public/next-js.svg';
 import { routes } from '@/validations/routeSchema';
 import type { Metadata } from 'next';
@@ -22,9 +19,12 @@ export const metadata: Metadata = {
   title: 'Next Contacts',
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const contacts = getContacts();
+type LayoutProps = {
+  children: React.ReactNode;
+  sidebar: React.ReactNode;
+};
 
+export default async function RootLayout({ children, sidebar }: LayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -38,9 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <SubmitButton theme="secondary">New</SubmitButton>
               </form>
             </div>
-            <Suspense fallback={<Skeleton className="flex grow flex-col p-4" />}>
-              <ContactList contactsPromise={contacts} />
-            </Suspense>
+            {sidebar}
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
               <Link className="flex items-center gap-2 text-black no-underline" href={routes.home()}>
                 <Image priority width={30} height={30} src={Logo} alt="Next.js logo" />
