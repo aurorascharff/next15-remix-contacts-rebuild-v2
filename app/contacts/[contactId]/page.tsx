@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 
 type PageProps = {
   params: Promise<unknown>;
+  searchParams: Promise<unknown>;
 };
 
 // In local development, the `generateMetadata` will not be streamed and will block the page until it resolves, hindering the suspense boundary from showing.
@@ -26,8 +27,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       };
 }
 
-export default async function ContactPage({ params }: PageProps) {
+export default async function ContactPage({ params, searchParams }: PageProps) {
   const { contactId } = routes.contactId.$parseParams(await params);
+  const { q } = routes.home.$parseSearchParams(await searchParams);
   const contact = await getContact(contactId);
 
   return (
@@ -65,7 +67,7 @@ export default async function ContactPage({ params }: PageProps) {
         )}
         {contact.notes && <div className="max-h-[300px] w-full overflow-auto 2xl:w-1/2">{contact.notes}</div>}
         <div className="my-4 flex gap-2">
-          <LinkButton theme="secondary" href={routes.contactIdEdit({ contactId })}>
+          <LinkButton theme="secondary" href={routes.contactIdEdit({ contactId, search: { q } })}>
             Edit
           </LinkButton>
           <DeleteContactButton contactId={contactId} />
