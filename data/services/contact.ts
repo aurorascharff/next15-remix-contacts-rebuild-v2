@@ -3,11 +3,10 @@ import 'server-only';
 import { cacheLife } from 'next/dist/server/use-cache/cache-life';
 import { cacheTag } from 'next/dist/server/use-cache/cache-tag';
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
 import { revalidationKeys } from '@/constants/revalidationKeys';
 import { prisma } from '@/db';
 
-export const getContact = cache(async (contactId: string) => {
+export async function getContact(contactId: string) {
   'use cache';
   cacheTag(revalidationKeys.contact(contactId));
   cacheLife('minutes');
@@ -21,11 +20,12 @@ export const getContact = cache(async (contactId: string) => {
     notFound();
   }
   return contact;
-});
+}
 
 export async function getContacts() {
   'use cache';
   cacheTag(revalidationKeys.contacts);
+  cacheLife('minutes');
 
   return prisma.contact.findMany({
     orderBy: [{ first: 'asc' }, { last: 'asc' }],
