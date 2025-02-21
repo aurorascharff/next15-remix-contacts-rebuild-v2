@@ -1,5 +1,6 @@
 import 'server-only';
 
+import { cacheLife } from 'next/dist/server/use-cache/cache-life';
 import { cacheTag } from 'next/dist/server/use-cache/cache-tag';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
@@ -9,6 +10,7 @@ import { prisma } from '@/db';
 export const getContact = cache(async (contactId: string) => {
   'use cache';
   cacheTag(revalidationKeys.contact(contactId));
+  cacheLife('minutes');
 
   const contact = await prisma.contact.findUnique({
     where: {
