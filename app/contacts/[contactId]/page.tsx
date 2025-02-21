@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { connection } from 'next/server';
+
 import LinkButton from '@/components/ui/LinkButton';
 import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
@@ -28,7 +28,6 @@ type PageProps = {
 // }
 
 export default async function ContactPage({ params, searchParams }: PageProps) {
-  await connection();
   const { contactId } = routes.contactId.$parseParams(await params);
   const { q } = routes.home.$parseSearchParams(await searchParams);
   const contact = await getContact(contactId);
