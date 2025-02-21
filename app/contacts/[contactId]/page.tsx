@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { connection } from 'next/server';
 import LinkButton from '@/components/ui/LinkButton';
-
 import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
@@ -12,7 +11,6 @@ type PageProps = {
   params: Promise<unknown>;
 };
 
-// In local development, the `generateMetadata` will not be streamed and will block the page until it resolves, hindering the suspense boundary from showing.
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   await connection();
 
