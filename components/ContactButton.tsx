@@ -14,6 +14,7 @@ export default function ContactButton({ contact }: { contact: Contact }) {
 
   return (
     <Link
+      prefetch={false}
       className={cn(
         isActive ? 'bg-primary text-white' : 'hover:bg-gray',
         'flex w-full items-center justify-between gap-4 overflow-hidden whitespace-pre rounded-lg p-2 hover:no-underline',
