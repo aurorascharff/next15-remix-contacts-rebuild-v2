@@ -1,17 +1,18 @@
 'use client';
 
+import Form from 'next/form';
 import { useRouter } from 'next/navigation';
 import React, { useTransition } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
-import { SearchIcon, SpinnerIcon } from './ui/icons';
+import SearchStatus from './ui/SearchStatus';
 
 export default function Search() {
   const router = useRouter();
   const { q } = useSafeSearchParams('home');
-  const [searching, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   return (
-    <form role="search">
+    <Form action="" role="search">
       <input
         className="w-full pl-8 outline-offset-1"
         onChange={e => {
@@ -25,15 +26,7 @@ export default function Search() {
         placeholder="Search"
         type="search"
       />
-      <div aria-hidden="true" className="absolute left-10 top-7">
-        {searching ? (
-          <div className="h-fit w-fit animate-spin">
-            <SpinnerIcon width={16} height={16} className="text-gray-dark" />
-          </div>
-        ) : (
-          <SearchIcon width={16} height={16} className="text-gray-dark" />
-        )}
-      </div>
-    </form>
+      <SearchStatus searching={isPending} />
+    </Form>
   );
 }

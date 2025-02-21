@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useActionState, useEffect, useRef, useState, useTransition } from 'react';
+import React, { startTransition, useActionState, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import { submitMessage } from '@/data/actions/message';
@@ -20,7 +20,6 @@ export default function MessageInput({ contactId, userId, addOptimisticMessage }
 
   const [defaultValue, setDefaultValue] = useState(state.content);
   const formRef = useRef<HTMLFormElement>(null);
-  const [, startTransition] = useTransition();
 
   useEffect(() => {
     if (state.error) {
@@ -42,7 +41,7 @@ export default function MessageInput({ contactId, userId, addOptimisticMessage }
         createdById: userId,
         id: uuidv4(),
       });
-      await submitMessageAction(new FormData(e.currentTarget));
+      submitMessageAction(new FormData(e.currentTarget));
       formRef.current?.reset();
     });
   };
