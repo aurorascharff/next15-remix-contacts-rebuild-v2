@@ -1,8 +1,7 @@
-import { cacheTag } from 'next/dist/server/use-cache/cache-tag';
 import Image from 'next/image';
 import { connection } from 'next/server';
 import LinkButton from '@/components/ui/LinkButton';
-import { revalidationKeys } from '@/constants/revalidationKeys';
+
 import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
@@ -18,7 +17,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   await connection();
 
   const { contactId } = routes.contactId.$parseParams(await params);
-  cacheTag(revalidationKeys.contact(contactId));
   const contact = await getContact(contactId);
 
   return contact && contact.first && contact.last

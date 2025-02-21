@@ -3,4 +3,7 @@ export const revalidationKeys = {
     return `contact-${contactId}`;
   },
   contacts: 'contacts',
+  messages: (contactId?: string) => {
+    return `messages-${contactId}`;
+  },
 } as const;
