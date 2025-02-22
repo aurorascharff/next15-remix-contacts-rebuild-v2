@@ -16,7 +16,6 @@ export function ContactMetadata({ contact }: { contact: Contact }) {
     <>
       <title>{metadata.title}</title>
       <meta name="description" content={metadata.description} />
-      <meta property="og:image" content={contact.avatar || undefined} />
     </>
   );
 }
