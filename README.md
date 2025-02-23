@@ -34,18 +34,11 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Prisma Setup
 
-Add a `.env` file to the root of the project, refer to `.env.sample` for the required environment variables.
-You need decide between prisma local development with `sqlite` or a real database with for example `sqlserver`. Define it in the `schema.prisma` file.
+You need decide between prisma local development with `sqlite` or a real database with for example `postgresql` or `sqlserver`. Define it in the `schema.prisma` file.
 
-After switching, delete the `prisma/migrations` folder before running the migration command.
+Consider adding a `.env` file to the root of the project and use the environment variables inside `schema.prisma` with `env("DATABASE_URL")`, refer to `.env.sample`.
 
-When using sqlserver, you need to migrate the database schema with:
-
-```bash
-npm run prisma.migrate
-```
-
-When using sqlite, initialize with:
+When using sqlite, initialize the database with:
 
 ```bash
 npm run prisma.push
@@ -61,6 +54,12 @@ To view your data in the database, you can run:
 
 ```bash
 npm run prisma.studio
+```
+
+When using a real database with for example postgresql or sqlserver, you need to migrate the database schema with:
+
+```bash
+npm run prisma.migrate
 ```
 
 ## Development Info
