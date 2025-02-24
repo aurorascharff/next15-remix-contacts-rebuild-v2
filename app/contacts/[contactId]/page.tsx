@@ -66,7 +66,7 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
         )}
         {contact.notes && <div className="max-h-[300px] w-full overflow-auto 2xl:w-1/2">{contact.notes}</div>}
         <div className="my-4 flex gap-2">
-          <LinkButton theme="secondary" href={routes.contactIdEdit({ contactId, search: { q } })}>
+          <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId, search: { q } })}>
             Edit
           </LinkButton>
           <DeleteContactButton contactId={contactId} />
