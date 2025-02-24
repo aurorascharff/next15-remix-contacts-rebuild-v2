@@ -1,20 +1,24 @@
 'use client';
 
 import { matchSorter } from 'match-sorter';
-import React from 'react';
-import { useContacts } from '@/providers/ContactsProvider';
+import React, { use } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import ContactButton from './ContactButton';
+import type { Contact } from '@prisma/client';
 
-export default function ContactList() {
-  const { optimisticContacts } = useContacts();
+type Props = {
+  contactsPromise: Promise<Contact[]>;
+};
+
+export default function ContactList({ contactsPromise }: Props) {
+  const contacts = use(contactsPromise);
   const { q } = useSafeSearchParams('home');
 
   const filteredContacts = q
-    ? matchSorter(optimisticContacts, q, {
+    ? matchSorter(contacts, q, {
         keys: ['first', 'last'],
       })
-    : optimisticContacts;
+    : contacts;
 
   return (
     <nav className="flex-1 overflow-auto px-8 py-4">
