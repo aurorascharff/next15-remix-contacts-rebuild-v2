@@ -10,7 +10,7 @@ export default function RootPage() {
         <a className="hover:text-gray-dark" href="https://remix.run/docs/en/main/start/tutorial">
           Remix Contacts{' '}
         </a>
-        tutorial app using Next.js 14 with Server Actions, Tailwind CSS and Prisma.
+        tutorial app using Next.js 15 with Server Actions, Tailwind CSS and Prisma.
         <br />
         Check out{' '}
         <a className="hover:text-gray-dark" href="https://github.com/aurorascharff/next15-remix-contacts-rebuild-v2">

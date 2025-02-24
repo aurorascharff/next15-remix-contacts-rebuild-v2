@@ -2,11 +2,12 @@ import { routes } from '@/validations/routeSchema';
 import Contact from './_components/Contact';
 
 type PageProps = {
-  params: unknown;
+  params: Promise<unknown>;
+  searchParams: Promise<unknown>;
 };
 
-export default function ContactPage({ params }: PageProps) {
-  const { contactId } = routes.contactId.$parseParams(params);
+export default async function ContactPage({ params }: PageProps) {
+  const { contactId } = routes.contactId.$parseParams(await params);
 
   return <Contact contactId={contactId} />;
 }

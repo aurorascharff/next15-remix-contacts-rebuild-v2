@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
-import { getContact } from '@/data/services/getContact';
-import { getCurrentUser } from '@/data/services/getCurrentUser';
-import { getMessages } from '@/data/services/getMessages';
+import { getContact } from '@/data/services/contact';
+import { getMessages } from '@/data/services/message';
+import { getCurrentUser } from '@/data/services/user';
 import Skeleton from '../ui/Skeleton';
 import Messages from './Messages';
 

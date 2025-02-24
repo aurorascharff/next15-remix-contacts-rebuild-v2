@@ -14,20 +14,16 @@ See branches `react-hook-form` and `react-query` for modified app versions.
 
 ## Usage
 
-First, force install the dependencies to make the React 19 Beta work:
+First, install the dependencies:
 
 ```bash
-npm install --force
+npm install
 ```
 
 Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -38,18 +34,11 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Prisma Setup
 
-Add a `.env` file to the root of the project, refer to `.env.sample` for the required environment variables.
-You need decide between prisma local development with `sqlite` or a real database with for example `sqlserver`. Define it in the `schema.prisma` file.
+You need decide between prisma local development with `sqlite` or a real database with for example `postgresql` or `sqlserver`. Define it in the `schema.prisma` file.
 
-After switching, delete the `prisma/migrations` folder before running the migration command.
+Consider adding a `.env` file to the root of the project and use the environment variables inside `schema.prisma` with `env("DATABASE_URL")`, refer to `.env.sample`.
 
-When using sqlserver, you need to migrate the database schema with:
-
-```bash
-npm run prisma.migrate
-```
-
-When using sqllite, initialize with:
+When using sqlite, initialize the database with:
 
 ```bash
 npm run prisma.push
@@ -67,6 +56,12 @@ To view your data in the database, you can run:
 npm run prisma.studio
 ```
 
+When using a real database with for example postgresql or sqlserver, you need to migrate the database schema with:
+
+```bash
+npm run prisma.migrate
+```
+
 ## Development Info
 
 ### Development Tools
@@ -81,25 +76,40 @@ The project uses [ESLint](https://eslint.org/) for linting and [Prettier](https:
 
 ### Folder Structure
 
-With Next.js, the folder structure is very important. The following folders are required:
-
 - `public` - contains the static assets of the application
-- `/` - contains the source code of the application
-- `/app` - contains the pages of the application using file based routing. Folders below this directory will be routes in the application unless they are prefixed with an underscore `_` (ignore from routing) or grouped with parentheses `()` (ignore but keep subfolders in routing).
-- When using brackets `[]` in the name of a folder, the folder will be a dynamic route. The name of the folder will be the name of the parameter in the route.
-- For each route inside `/app` that is meant to be a route, there should be a `page.tsx` and alternatively `layout.tsx` for the route.
-- Each route can also have a `error.tsx` page for error handling, and a `not-found.tsx` page for handling 404 errors.
-- `/components` - contains shared components used across the application, same goes for the other folders in `/`.
-- `/data` - contains server-side data fetching and mutations.
-- For each route, `_components` can be used to store components that are only used in that route. Same goes for `_hooks`, `_utils`, etc. Every page folder should contain everything it needs to work. And every component or function should live at the nearest shared space in the hierarchy.
+- `src` - contains the source code of the application
+- `src/app` - contains the pages of the application using file based routing.
+- `src/components` - contains shared components used across the application. The same goes for the other shared folder like `providers`, `hooks`, `utils`, etc.
+- For each route, a local `_components`-folder can be used to store components that are only used in that route. Same goes for `_hooks`, `_utils`, etc.
+- `src/data` - contains server-side data fetching and mutations.
 
-Refer to the [Next.js 13 App Router](https://nextjs.org/docs/app) documentation for more information.
+Every page folder should contain everything it needs to work. And every component or function should live at the nearest shared space in the hierarchy.
 
 ### Routing
 
-The project uses Next.js file-based routing. However, the route params and search params are not typed by default, so [next-safe-navigation](https://github.com/lukemorales/next-safe-navigation) is used to type the route params and search params. This allows for type-safe navigation and query parameters. All routes are defined in `/validations/routeSchema.ts` and can be used by calling `routes.<routeName>`.
+The project uses Next.js filesystem-based routing. To give a brief overview:
+
+- Folders below the `app/`-directory will be routes in the application.
+- For each folders inside `src/app` that is meant to be a route, there should be a `page.tsx` and alternatively `layout.tsx` for the route.
+- When using brackets `[]` in the name of a folder, the folder will be a dynamic route. The name of the folder will be the name of the parameter in the route.
+- There are additional tools, such as ignoring folders from routing by prefixing with `_`, and creating groups by wrapping with `()`.
+- Each route can also have a `error.tsx` file for handling application errors, and a `not-found.tsx` page for handling 404 errors with notFound().
+
+Please refer to the [Next.js App Router](https://nextjs.org/docs/app) documentation for more information.
+
+#### Note on Type-Safe Routing
+
+In the Next.js App Router, routes, route params and search params are not typed by default. Therefore, [next-safe-navigation](https://github.com/lukemorales/next-safe-navigation) is used for type-safe navigation. All routes are defined in `src/validations/routeSchema.ts` and can be used by calling `routes.<routeName>`.
 
 In client components, parsing params is done with the hooks `useSafeParams` and `useSafeSearchParams`. For server components, the `pageProps` are passed down as an unknown object and validated with `routes.<routeName>.$parseParams` and `routes.<routeName>.$parseSearchParams`.
+
+### Note on React 19
+
+The Next.js App Router uses React 19 Server Components, and by default all components are server components unless opted into client-side rendering with `"use client"`. In addition, the project uses other React 19 features such as Server Functions, `useFormStatus()`, `useOptimistic()`, `useActionState()`, and async transitions with `useTransition()`. Please read the [React docs](https://react.dev/reference/react) on these features to understand how to use them. Read more about the use of Server Functions under [Data Fetching and Mutation](#data-fetching-and-mutation).
+
+### Note on the React Compiler
+
+The project uses the React Compiler to optimize the application. The React Compiler is a new feature in React that optimizes the application by skipping rerenders and expensive functions calls, and removes the need for much manual momoization. The compiler is enabled in the `next.config.ts` file. It's currently in Beta, and everything it working well. Pay attention to it's behavior, and try to follow the eslint rules for it defined by `eslint-plugin-react-compiler`. Refer to the [React Compiler documentation](https://react.dev/learn/react-compiler) for more information.
 
 ### Styling
 
@@ -109,9 +119,9 @@ Use the `cn` util when merging conditional classes with other classes. Excess st
 
 ### Data Fetching and Mutation
 
-Data fetching is done through prisma. Mutations are done using Next.js Server Actions, skipping the Next.js 12 `/api` convention. Files are stores inside the `/data` folder, where `/lib/services` are server-side data fetches and `/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
+The project uses [Prisma](https://www.prisma.io/) for data fetching. Mutations are done using React Server Functions, skipping the Next.js 12 `/api` convention. Files are stores inside the `src/data` folder, where `src/data/services` are server-side data queries and `src/data/actions` are mutations. Take extra consideration when creating hidden endpoints with "use server" to avoid exposing sensitive data.
 
-For more information, refer to the [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
+For more information, refer to the [React Server Functions](https://19.react.dev/reference/rsc/server-functions) and [Next.js Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations) documentation.
 
 When using a form with an action, the loading state is included in the `SubmitButton`-component, and the form is disabled while the action is pending. For other cases, a loading state can be passed to to submit button or other components to handle the loading state.
 

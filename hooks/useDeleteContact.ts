@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { queryKeys } from '@/contants/queryKeys';
-import { deleteContact } from '@/lib/actions/deleteContact';
+import { deleteContact } from '@/data/actions/contact';
 import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 

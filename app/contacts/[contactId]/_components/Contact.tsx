@@ -96,10 +96,9 @@ export default function Contact({ contactId }: { contactId: string }) {
               loading={isPending}
               onClick={() => {
                 const response = confirm('Please confirm you want to delete this record.');
-                if (!response) {
-                  return;
+                if (response) {
+                  deleteContact(contact.id);
                 }
-                deleteContact(contact.id);
               }}
               theme="destroy"
             >

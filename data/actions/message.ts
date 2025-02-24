@@ -3,7 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { prisma } from '@/db';
-import { getCurrentUser } from '../services/getCurrentUser';
+import { routes } from '@/validations/routeSchema';
+import { getCurrentUser } from '../services/user';
 
 const messageSchema = z.object({
   contactId: z.string().uuid({
@@ -46,7 +47,7 @@ export async function submitMessage(_prevState: State, formData: FormData): Prom
     },
   });
 
-  revalidatePath('/');
+  revalidatePath(routes.home());
 
   return {
     success: true,

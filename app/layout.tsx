@@ -3,12 +3,13 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { Toaster } from 'react-hot-toast';
 import ContactList from '@/components/ContactList';
 import NewContactButton from '@/components/NewContactButton';
 import Search from '@/components/Search';
 import { queryKeys } from '@/contants/queryKeys';
-import { getContacts } from '@/data/services/getContacts';
+import { getContacts } from '@/data/services/contact';
 import QueryProvider from '@/providers/QueryProvider';
 import Logo from '@/public/next-js.svg';
 import { routes } from '@/validations/routeSchema';
@@ -35,7 +36,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <div className="flex h-1/3 w-full flex-col border-r border-gray bg-gray-light sm:h-auto sm:w-[16rem] md:w-[22rem]">
                 <Toaster position="top-right" />
                 <div className="flex items-center gap-2 border-b border-gray px-8 py-4">
-                  <Search />
+                  <Suspense>
+                    <Search />
+                  </Suspense>
                   <NewContactButton />
                 </div>
                 <ContactList />
