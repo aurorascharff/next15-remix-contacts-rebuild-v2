@@ -10,10 +10,11 @@ import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
 import { updateContact } from '@/data/actions/contact';
 import { contactSchema, type ContactSchemaType } from '@/validations/contactSchema';
-import { routes } from '@/validations/routeSchema';
+import { routes, useSafeSearchParams } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
+  const { q } = useSafeSearchParams('home');
   const {
     handleSubmit,
     register,
