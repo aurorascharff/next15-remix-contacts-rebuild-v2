@@ -20,11 +20,11 @@ export const metadata: Metadata = {
 };
 
 type LayoutProps = {
-  children: React.ReactNode;
+  contacts: React.ReactNode;
   sidebar: React.ReactNode;
 };
 
-export default async function RootLayout({ children, sidebar }: LayoutProps) {
+export default async function RootLayout({ contacts, sidebar }: LayoutProps) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -47,7 +47,7 @@ export default async function RootLayout({ children, sidebar }: LayoutProps) {
             </div>
             <div className="flex border-t border-t-gray sm:hidden" />
           </div>
-          <div className="h-2/3 w-full flex-1 px-16 py-8 sm:h-auto">{children}</div>
+          <div className="h-2/3 w-full flex-1 px-16 py-8 sm:h-auto">{contacts}</div>
         </div>
       </body>
     </html>

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import LogoFull from '../public/nextjs-13.svg';
+import LogoFull from '../../public/nextjs-13.svg';
 
 export default function RootPage() {
   return (
