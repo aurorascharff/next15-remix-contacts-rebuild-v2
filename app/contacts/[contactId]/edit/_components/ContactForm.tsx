@@ -72,7 +72,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         />
       </div>
       <div className="flex gap-2 self-start @sm:self-end">
-        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: { q } })}>
+        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: q ? { q } : undefined })}>
           Cancel
         </LinkButton>
         <SubmitButton theme="primary">Save</SubmitButton>
