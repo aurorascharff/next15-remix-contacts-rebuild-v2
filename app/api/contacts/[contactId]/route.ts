@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/db';
 import { contactSchema } from '@/validations/contactSchema';
-
 import type { NextRequest } from 'next/server';
 
 type Params = {
