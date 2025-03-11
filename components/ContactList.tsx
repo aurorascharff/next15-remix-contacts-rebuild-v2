@@ -1,18 +1,31 @@
 'use client';
 
 import { matchSorter } from 'match-sorter';
-import React, { use } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import ContactButton from './ContactButton';
+import Skeleton from './ui/Skeleton';
 import type { Contact } from '@prisma/client';
 
-type Props = {
-  contactsPromise: Promise<Contact[]>;
-};
-
-export default function ContactList({ contactsPromise }: Props) {
-  const contacts = use(contactsPromise);
+export default function ContactList() {
   const { q } = useSafeSearchParams('home');
+  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchContact() {
+      setIsLoading(true);
+      const response = await fetch('/api/contacts');
+      if (!response.ok) {
+        setIsLoading(false);
+        return;
+      }
+      const data = await response.json();
+      setContacts(data);
+      setIsLoading(false);
+    }
+    fetchContact();
+  }, []);
 
   const filteredContacts = q
     ? matchSorter(contacts, q, {
@@ -20,7 +33,9 @@ export default function ContactList({ contactsPromise }: Props) {
       })
     : contacts;
 
-  return (
+  return isLoading ? (
+    <Skeleton className="flex grow flex-col px-10 py-6" />
+  ) : (
     <nav className="flex-1 overflow-auto px-8 py-4">
       {filteredContacts.length ? (
         <ul>

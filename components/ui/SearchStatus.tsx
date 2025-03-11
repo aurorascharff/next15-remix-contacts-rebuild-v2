@@ -1,13 +1,7 @@
-'use client';
-
 import React from 'react';
-import { useFormStatus } from 'react-dom';
 import { SearchIcon, SpinnerIcon } from './icons';
 
-export default function SearchStatus({ searching }: { searching: boolean }) {
-  const { pending } = useFormStatus();
-  const isSearching = searching || pending;
-
+export default function SearchStatus({ isSearching = false }: { isSearching?: boolean }) {
   return (
     <div aria-hidden="true" className="absolute left-10 top-7">
       {isSearching ? (

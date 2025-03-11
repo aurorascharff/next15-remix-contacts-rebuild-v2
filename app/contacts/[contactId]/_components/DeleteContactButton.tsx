@@ -1,27 +1,36 @@
 'use client';
 
-import React, { useTransition } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 import SubmitButton from '@/components/ui/SubmitButton';
-import { deleteContact } from '@/data/actions/contact';
+import { routes } from '@/validations/routeSchema';
 
 export default function DeleteContactButton({ contactId }: { contactId: string }) {
-  const deleteContactById = deleteContact.bind(null, contactId);
-  const [, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
 
   return (
-    <form
-      action={deleteContactById}
-      onSubmit={e => {
-        e.preventDefault();
+    <SubmitButton
+      theme="destroy"
+      loading={isPending}
+      onClick={async () => {
         const response = confirm('Please confirm you want to delete this record.');
         if (response) {
-          startTransition(async () => {
-            await deleteContactById();
+          setIsPending(true);
+          const res = await fetch(`/api/contacts/${contactId}`, {
+            method: 'DELETE',
           });
+          setIsPending(false);
+          if (!res.ok) {
+            throw new Error('Failed to delete contact');
+          }
+          router.refresh();
+          router.push(routes.home());
         }
       }}
     >
-      <SubmitButton theme="destroy">Delete</SubmitButton>
-    </form>
+      Delete
+    </SubmitButton>
   );
 }

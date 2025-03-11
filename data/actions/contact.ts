@@ -25,7 +25,7 @@ export async function updateContact(contactId: string, _prevState: State, formDa
 
   if (!result.success) {
     return {
-      data: data as ContactSchemaType,
+      data,
       errors: result.error.formErrors,
     };
   }

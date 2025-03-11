@@ -6,11 +6,12 @@ export const contactSchema = z.object({
     .url()
     .startsWith('https://sessionize.com', 'Avatar URL must be from sessionize.com')
     .or(z.literal(''))
-    .nullable(),
-  first: z.string().nullable(),
-  last: z.string().nullable(),
-  notes: z.string().nullable(),
-  twitter: z.string().startsWith('@', 'Twitter handle must start with @').or(z.literal('')).nullable(),
+    .optional(),
+  favorite: z.boolean().optional(),
+  first: z.string().optional(),
+  last: z.string().optional(),
+  notes: z.string().optional(),
+  twitter: z.string().startsWith('@', 'Twitter handle must start with @').or(z.literal('')).optional(),
 });
 
 export type ContactSchemaType = z.infer<typeof contactSchema>;

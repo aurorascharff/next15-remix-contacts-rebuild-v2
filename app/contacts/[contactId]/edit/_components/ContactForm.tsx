@@ -1,46 +1,71 @@
 'use client';
 
-import React, { useActionState } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
 import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
-import { updateContact } from '@/data/actions/contact';
-import type { ContactSchemaErrorType } from '@/validations/contactSchema';
-import { routes, useSafeSearchParams } from '@/validations/routeSchema';
+import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
 export default function ContactForm({ contact }: { contact: Contact }) {
-  const { q } = useSafeSearchParams('home');
-  const updateContactById = updateContact.bind(null, contact.id);
-  const [state, updateContactAction] = useActionState(updateContactById, {
-    data: {
-      avatar: contact.avatar,
-      first: contact.first,
-      last: contact.last,
-      notes: contact.notes,
-      twitter: contact.twitter,
-    },
-    errors: {} as ContactSchemaErrorType,
+  const router = useRouter();
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState({
+    avatar: undefined,
+    first: undefined,
+    last: undefined,
+    notes: undefined,
+    twitter: undefined,
+  });
+  const [data, setData] = useState({
+    avatar: contact.avatar,
+    first: contact.first,
+    last: contact.last,
+    notes: contact.notes,
+    twitter: contact.twitter,
   });
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsPending(true);
+    const result = await fetch(`/api/contacts/${contact.id}`, {
+      body: new FormData(event.currentTarget),
+      method: 'PUT',
+    });
+    setIsPending(false);
+    if (!result.ok) {
+      setError('Failed to update contact');
+    } else if (result.status === 422) {
+      const data = await result.json();
+      setErrors(data.errors);
+      setData(data.data);
+    } else if (result.status === 200) {
+      router.refresh();
+      router.push(routes.contactId({ contactId: contact.id }));
+    }
+  };
+
   return (
-    <form className="flex max-w-[40rem] flex-col gap-4 @container" action={updateContactAction}>
+    <form onSubmit={handleSubmit} className="flex max-w-[40rem] flex-col gap-4 @container">
       <div className="grip-rows-5 grid gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
           <Input
-            errors={state.errors?.fieldErrors?.first}
-            defaultValue={state.data?.first || undefined}
+            errors={errors?.first}
+            defaultValue={data?.first || undefined}
             aria-label="First name"
             name="first"
             type="text"
             placeholder="First"
           />
           <Input
-            errors={state.errors?.fieldErrors?.last}
+            errors={errors?.last}
             aria-label="Last name"
-            defaultValue={state.data?.last || undefined}
+            defaultValue={data?.last || undefined}
             name="last"
             placeholder="Last"
             type="text"
@@ -48,35 +73,38 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         </div>
         <label htmlFor="twitter">Twitter</label>
         <Input
-          errors={state.errors?.fieldErrors?.twitter}
-          defaultValue={state.data?.twitter || undefined}
+          errors={errors?.twitter}
+          defaultValue={data?.twitter || undefined}
           name="twitter"
           placeholder="@jack"
           type="text"
         />
         <label htmlFor="avatar">Avatar URL</label>
         <Input
-          errors={state.errors?.fieldErrors?.avatar}
-          defaultValue={state.data?.avatar || undefined}
+          errors={errors?.avatar}
+          defaultValue={data?.avatar || undefined}
           name="avatar"
           placeholder="https://sessionize.com/image/example.jpg"
           type="text"
         />
         <label htmlFor="notes">Notes</label>
         <TextArea
-          errors={state.errors?.fieldErrors?.notes}
+          errors={errors?.notes}
           className="grow"
-          defaultValue={state.data?.notes || undefined}
+          defaultValue={data?.notes || undefined}
           name="notes"
           rows={6}
         />
       </div>
       <div className="flex gap-2 self-start @sm:self-end">
-        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id, search: q ? { q } : undefined })}>
+        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id })}>
           Cancel
         </LinkButton>
-        <SubmitButton theme="primary">Save</SubmitButton>
+        <SubmitButton loading={isPending} type="submit" theme="primary">
+          Save
+        </SubmitButton>
       </div>
+      {error && <p className="self-end text-red-500">{error}</p>}
     </form>
   );
 }

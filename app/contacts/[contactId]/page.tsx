@@ -1,75 +1,81 @@
+'use client';
+
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import LinkButton from '@/components/ui/LinkButton';
-import { getContact } from '@/data/services/contact';
-import { routes } from '@/validations/routeSchema';
+import Skeleton from '@/components/ui/Skeleton';
+import { routes, useSafeParams } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
-import type { Metadata } from 'next';
+import type { Contact } from '@prisma/client';
 
-type PageProps = {
-  params: Promise<unknown>;
-  searchParams: Promise<unknown>;
-};
+export default function ContactPage() {
+  const { contactId } = useSafeParams('contactId');
+  const [contact, setContact] = useState<Contact | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { contactId } = routes.contactId.$parseParams(await params);
-  const contact = await getContact(contactId);
-
-  return contact && contact.first && contact.last
-    ? {
-        description: `Contact details for ${contact.first} ${contact.last}`,
-        title: `${contact.first} ${contact.last}`,
+  useEffect(() => {
+    async function fetchContact() {
+      setIsLoading(true);
+      const response = await fetch(`/api/contacts/${contactId}`);
+      if (!response.ok) {
+        setIsLoading(false);
+        return;
       }
-    : {
-        description: 'Contact details for an unnamed contact',
-        title: 'Unnamed Contact',
-      };
-}
+      const data = await response.json();
+      setContact(data);
+      setIsLoading(false);
+    }
+    fetchContact();
+  }, [contactId]);
 
-export default async function ContactPage({ params, searchParams }: PageProps) {
-  const { contactId } = routes.contactId.$parseParams(await params);
-  const { q } = routes.home.$parseSearchParams(await searchParams);
-  const contact = await getContact(contactId);
-
-  return (
+  return isLoading ? (
     <div className="flex flex-col gap-4 lg:flex-row">
-      {contact.avatar && (
+      <div className="mr-8 h-48 w-48 rounded-3xl bg-gray" />
+      <Skeleton className="max-w-[250px]" />
+    </div>
+  ) : (
+    <div className="flex flex-col gap-4 lg:flex-row">
+      {contact?.avatar && (
         <div className="flex-shrink-0">
           <Image
             priority
             width={192}
             height={192}
             className="mr-8 rounded-3xl bg-gray object-cover"
-            alt={`${contact.first} ${contact.last} avatar`}
-            key={contact.avatar}
-            src={contact.avatar}
+            alt={`${contact?.first} ${contact?.last} avatar`}
+            key={contact?.avatar}
+            src={contact?.avatar}
           />
         </div>
       )}
       <div className="flex flex-col gap-2">
         <h1 className="flex-start flex gap-4 text-3xl font-bold">
-          {contact.first || contact.last ? (
+          {contact?.first || contact?.last ? (
             <>
-              {contact.first} {contact.last}
+              {contact?.first} {contact?.last}
             </>
           ) : (
             <i>No Name</i>
           )}
-          <Favorite contact={contact} />
+          {contact && <Favorite contact={contact} />}
         </h1>
-        {contact.twitter && (
+        {contact?.twitter && (
           <p className="text-2xl text-primary">
-            <a className="text-primary no-underline hover:underline" href={`https://twitter.com/${contact.twitter}`}>
-              {contact.twitter}
+            <a className="text-primary no-underline hover:underline" href={`https://twitter.com/${contact?.twitter}`}>
+              {contact?.twitter}
             </a>
           </p>
         )}
-        {contact.notes && <div className="max-h-[300px] w-full overflow-auto 2xl:w-1/2">{contact.notes}</div>}
+        {contact?.notes && <div className="max-h-[300px] w-full overflow-auto 2xl:w-1/2">{contact?.notes}</div>}
         <div className="my-4 flex gap-2">
-          <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId, search: { q } })}>
+          <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId })}>
             Edit
           </LinkButton>
-          <DeleteContactButton contactId={contactId} />
+          <ErrorBoundary fallback={<p>Something went wrong</p>}>
+            <DeleteContactButton contactId={contactId} />
+          </ErrorBoundary>
         </div>
       </div>
     </div>
