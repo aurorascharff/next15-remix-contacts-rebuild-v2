@@ -13,7 +13,6 @@ import type { Contact } from '@prisma/client';
 export default function ContactForm({ contact }: { contact: Contact }) {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [errors, setErrors] = useState({
     avatar: undefined,
     first: undefined,
@@ -38,11 +37,13 @@ export default function ContactForm({ contact }: { contact: Contact }) {
     });
     setIsPending(false);
     if (!result.ok) {
-      setError('Failed to update contact');
-    } else if (result.status === 422) {
-      const data = await result.json();
-      setErrors(data.errors);
-      setData(data.data);
+      if (result.status === 422) {
+        const data = await result.json();
+        setErrors(data.errors);
+        setData(data.data);
+      } else {
+        throw new Error('Something went wrong');
+      }
     } else if (result.status === 200) {
       router.refresh();
       router.push(routes.contactId({ contactId: contact.id }));
@@ -104,7 +105,6 @@ export default function ContactForm({ contact }: { contact: Contact }) {
           Save
         </SubmitButton>
       </div>
-      {error && <p className="self-end text-red-500">{error}</p>}
     </form>
   );
 }
