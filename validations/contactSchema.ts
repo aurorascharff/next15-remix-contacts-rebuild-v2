@@ -7,7 +7,12 @@ export const contactSchema = z.object({
     .startsWith('https://sessionize.com', 'Avatar URL must be from sessionize.com')
     .or(z.literal(''))
     .optional(),
-  favorite: z.boolean().optional(),
+  favorite: z
+    .union([z.literal('true'), z.literal('false')])
+    .transform(val => {
+      return val === 'true';
+    })
+    .optional(),
   first: z.string().optional(),
   last: z.string().optional(),
   notes: z.string().optional(),

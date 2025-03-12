@@ -7,11 +7,12 @@ import type { Contact } from '@prisma/client';
 export default function Favorite({ contact }: { contact: Contact }) {
   const [isFavorite, setIsFavorite] = useState(contact.favorite);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleFavorite = async () => {
     setIsFavorite(!isFavorite);
+    const formData = new FormData();
+    formData.append('favorite', (!isFavorite).toString());
     const res = await fetch(`/api/contacts/${contact.id}`, {
-      body: new FormData(e.currentTarget),
+      body: formData,
       method: 'PUT',
     });
     if (!res.ok) {
@@ -20,18 +21,15 @@ export default function Favorite({ contact }: { contact: Contact }) {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <button
-        type="submit"
-        className={cn(
-          isFavorite ? 'text-yellow-500' : 'text-gray-dark',
-          'flex text-2xl font-normal shadow-none hover:text-yellow-400 hover:shadow-none',
-        )}
-        aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      >
-        {isFavorite ? '★' : '☆'}
-      </button>
-      <input type="hidden" name="favorite" value={isFavorite.toString()} />
-    </form>
+    <button
+      onClick={handleFavorite}
+      className={cn(
+        isFavorite ? 'text-yellow-500' : 'text-gray-dark',
+        'flex text-2xl font-normal shadow-none hover:text-yellow-400 hover:shadow-none',
+      )}
+      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+    >
+      {isFavorite ? '★' : '☆'}
+    </button>
   );
 }

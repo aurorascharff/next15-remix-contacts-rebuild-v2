@@ -35,7 +35,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
   const contactId = (await params).contactId;
   const formData = await request.formData();
-
   const data = Object.fromEntries(formData);
   const result = contactSchema.safeParse(data);
 
