@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import { prisma } from '@/db';
+import { slow } from '@/utils/slow';
 import { contactSchema } from '@/validations/contactSchema';
 import type { NextRequest } from 'next/server';
 
@@ -11,9 +12,7 @@ type Params = {
 };
 
 export async function GET(_request: NextRequest, { params }: Params) {
-  await new Promise(resolve => {
-    return setTimeout(resolve, 1000);
-  });
+  await slow();
 
   const contactId = (await params).contactId;
   const contact = await prisma.contact.findUnique({
@@ -29,9 +28,7 @@ export async function GET(_request: NextRequest, { params }: Params) {
 }
 
 export async function PUT(request: NextRequest, { params }: Params) {
-  await new Promise(resolve => {
-    return setTimeout(resolve, 1000);
-  });
+  await slow();
 
   const contactId = (await params).contactId;
   const formData = await request.formData();
@@ -61,9 +58,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: Params) {
-  await new Promise(resolve => {
-    return setTimeout(resolve, 1000);
-  });
+  await slow();
 
   const contactId = (await params).contactId;
 

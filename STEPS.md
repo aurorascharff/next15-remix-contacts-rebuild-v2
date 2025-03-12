@@ -35,7 +35,7 @@
 ## Simplify optimistic updates with useOptimistic()
 
 - Use form with action, direct access to a specific server function, automatic serialization and type safety
-- Remove useState for the value, replace with const isFavorite
+- Remove useState for the value
 - Automatically Form Server Action wrapped in transition, can call optimistic update inside
 
 ## Review and remove unnecessary code

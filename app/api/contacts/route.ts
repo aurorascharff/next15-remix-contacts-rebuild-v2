@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/db';
+import { slow } from '@/utils/slow';
 
 export async function GET() {
   const contacts = await prisma.contact.findMany({
@@ -10,9 +11,7 @@ export async function GET() {
 }
 
 export async function POST() {
-  await new Promise(resolve => {
-    return setTimeout(resolve, 1000);
-  });
+  await slow();
 
   const contact = await prisma.contact.create({
     data: {},

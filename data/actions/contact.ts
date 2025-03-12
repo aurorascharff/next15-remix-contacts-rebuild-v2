@@ -3,23 +3,28 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/db';
-import type { ContactSchemaType, ContactSchemaErrorType } from '@/validations/contactSchema';
+import { slow } from '@/utils/slow';
+import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/contactSchema';
 import { contactSchema } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
 
 export async function createEmptyContact() {
+  await slow();
+
   const contact = await prisma.contact.create({
     data: {},
   });
   redirect(routes.contactIdEdit({ contactId: contact.id }));
 }
 
-type State = {
+export type State = {
   data?: ContactSchemaType;
   errors?: ContactSchemaErrorType;
 };
 
-export async function updateContact(contactId: string, _prevState: State, formData: FormData) {
+export async function updateContact(contactId: string, formData: FormData) {
+  await slow();
+
   const data = Object.fromEntries(formData);
   const result = contactSchema.safeParse(data);
 
@@ -41,6 +46,8 @@ export async function updateContact(contactId: string, _prevState: State, formDa
 }
 
 export async function favoriteContact(contactId: string, isFavorite: boolean) {
+  await slow();
+
   await prisma.contact.update({
     data: {
       favorite: !isFavorite,
