@@ -2,14 +2,16 @@
 
 ## Starting point
 
+- Fullscreen app
 - Next.js 15 with React 19
 - Contacts App from React Router tutorial remake in Next.js
-- Simple cases without any libraries, that's what we're now able to replace, libraries can still be relevant
 - Quick demo open contact, new contact, update contact (errors then success), delete contact, favorite contact
 - Highlight problems with UX: mismatched pending states, loading new contacts every time
+- Simple cases without any libraries, that's what we're now able to replace, libraries can still be relevant
 
 ## Fetch async data, suspense, and use()
 
+- Fullscreen code
 - ContactPage: make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx
 - Can take use of Next.js caching since we are using the server components
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
@@ -43,7 +45,7 @@
 ## Review and remove unnecessary code
 
 - Delete API layer, we don't like this anyways since it's not type safe
-- Second demo
+- Second demo fullscreen app
 - Check diffs
 - Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
