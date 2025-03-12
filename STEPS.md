@@ -13,7 +13,6 @@
 
 - Fullscreen code
 - ContactPage: make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx
-- Can take use of Next.js caching since we are using the server components
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
 
 ## Use Server Functions and transitions (Actions)
@@ -45,7 +44,7 @@
 ## Review and remove unnecessary code
 
 - Delete API layer, we don't like this anyways since it's not type safe
-- Second demo fullscreen app
 - Check diffs
+- Second demo fullscreen app: open contact (click back and forth nextjs caching), new contact, update contact (errors then success), delete contact, favorite contact
 - Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
