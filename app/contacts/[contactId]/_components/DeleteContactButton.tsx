@@ -25,8 +25,8 @@ export default function DeleteContactButton({ contactId }: { contactId: string }
           if (!res.ok) {
             throw new Error('Failed to delete contact');
           }
-          router.refresh();
           router.push(routes.home());
+          router.refresh();
         }
       }}
     >

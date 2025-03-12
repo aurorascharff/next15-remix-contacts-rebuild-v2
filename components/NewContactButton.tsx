@@ -25,8 +25,8 @@ export default function NewContactButton() {
           setIsError(true);
         } else {
           const contactId = await res.json();
-          router.refresh();
           router.push(routes.contactIdEdit({ contactId }));
+          router.refresh();
         }
       }}
       type="submit"

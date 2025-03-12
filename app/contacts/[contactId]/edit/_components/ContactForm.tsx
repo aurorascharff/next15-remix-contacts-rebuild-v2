@@ -45,8 +45,8 @@ export default function ContactForm({ contact }: { contact?: Contact }) {
         throw new Error('Something went wrong');
       }
     } else if (result.status === 200) {
-      router.refresh();
       router.push(routes.contactId({ contactId: contact?.id }));
+      router.refresh();
     }
   };
 

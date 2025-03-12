@@ -1,11 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { cn } from '@/utils/cn';
 import type { Contact } from '@prisma/client';
 
 export default function Favorite({ contact }: { contact: Contact }) {
   const [isFavorite, setIsFavorite] = useState(contact.favorite);
+  const router = useRouter();
 
   const handleFavorite = async () => {
     setIsFavorite(!isFavorite);
@@ -15,6 +17,7 @@ export default function Favorite({ contact }: { contact: Contact }) {
       body: formData,
       method: 'PUT',
     });
+    router.refresh();
     if (!res.ok) {
       setIsFavorite(isFavorite);
     }
