@@ -5,12 +5,13 @@
 - Next.js 15 with React 19
 - Contacts App from React Router tutorial remake in Next.js
 - Simple cases without any libraries, that's what we're now able to replace, libraries can still be relevant
-- Quick demo new contact, update contact (errors then success), delete contact, favorite contact
-- Highlight problems with UX: mismatched pending states
+- Quick demo open contact, new contact, update contact (errors then success), delete contact, favorite contact
+- Highlight problems with UX: mismatched pending states, loading new contacts every time
 
 ## Fetch async data, suspense, and use()
 
 - ContactPage: make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx
+- Can take use of Next.js caching since we are using the server components
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
 
 ## Use Server Functions and transitions (Actions)
