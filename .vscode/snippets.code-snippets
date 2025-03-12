@@ -1,0 +1,11 @@
+{
+    "suspense": {
+        "scope": "typescriptreact",
+        "prefix": "suspense",
+        "body": [
+            "<Suspense fallback={<${1:} }>",
+            "${TM_SELECTED_TEXT}",
+            "</Suspense>"
+        ],
+    },
+}
