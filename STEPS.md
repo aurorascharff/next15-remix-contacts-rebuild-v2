@@ -45,6 +45,6 @@
 
 - Delete API layer, we don't like this anyways since it's not type safe
 - Check diffs
-- Second demo fullscreen app: open contact (click back and forth nextjs caching), new contact, update contact (errors then success), delete contact, favorite contact
+- Second demo fullscreen app: open contact (click back and forth nextjs caching), new contact, update contact (errors then success), delete contact, favorite contact, search spinner
 - Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
