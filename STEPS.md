@@ -9,7 +9,7 @@
 - Highlight problems with UX: mismatched pending states, loading new contacts every time
 - Simple cases without any libraries, that's what we're now able to replace, libraries can still be relevant
 
-## Fetch async data, suspense, and use()
+## Fetch async data, suspense
 
 - Fullscreen code
 - ContactPage: make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx
@@ -46,5 +46,5 @@
 - Delete API layer, we don't like this anyways since it's not type safe
 - Check diffs
 - Second demo fullscreen app: open contact (click back and forth nextjs caching), new contact, update contact (errors then success), delete contact, favorite contact, search spinner
-- Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default
+- Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default and automatically serialized
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
