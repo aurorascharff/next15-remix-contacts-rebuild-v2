@@ -21,9 +21,9 @@
 
 ## Use forms for buttons and add useFormStatus()
 
-- NewContactButton: Showcase, go to layout, replace with form and server function and SubmitButton (snippet), delete NewContactButton
-- SubmitButton: use useFormStatus() to show loading state even from the server
-- SearchStatus: use useFormStatus() to show loading state from a form with the default form behavior
+- NewContactButton: Showcase, go to layout, replace with form and server function and SubmitButton, delete NewContactButton
+- SubmitButton: add useFormStatus() to show loading state even from the server
+- SearchStatus: showcase useFormStatus() to show loading state from a form with the default form behavior
 
 ## Migrate from onSubmit to form action with useActionState()
 
