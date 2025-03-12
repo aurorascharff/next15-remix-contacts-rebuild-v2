@@ -28,18 +28,20 @@
 ## Migrate from onSubmit to form action with useActionState()
 
 - ContactForm: Showcase boilerplate code, no type safety, loading states, etc
-- Use useActionState() (snippet) with a server function, returned value replaces form values
-- Remove isLoading prop from submitButton, reuse composable component
+- Use useActionState() (snippet) with a server function, put updateContactAction on form
+- Returned value replaces form values with cmd + d
+- Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
 
 ## Simplify optimistic updates with useOptimistic()
 
 - Use form with action, direct access to a specific server function, automatic serialization and type safety
-- Automatically Form Action wrapped in transition, can call optimistic update inside
+- Remove useState for the value, replace with const isFavorite
+- Automatically Form Server Action wrapped in transition, can call optimistic update inside
 
 ## Review and remove unnecessary code
 
 - Delete API layer, we don't like this anyways since it's not type safe
-- Final demo
+- Second demo
 - Check diffs
 - Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to

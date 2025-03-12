@@ -1,7 +1,7 @@
 {
-    "contactpage": {
+    "contactPage": {
         "scope": "typescriptreact",
-        "prefix": "contactpage",
+        "prefix": "contactPage",
         "body": [
             "type PageProps = {",
             "  params: Promise<unknown>;",
@@ -11,5 +11,27 @@
             "  const { contactId } = routes.contactId.\\$parseParams(await params);",
             ""
         ],
+    },
+    "contactActionState": {
+        "scope": "typescriptreact",
+        "prefix": "contactActionState",
+        "body": [
+            "const [state, updateContactAction] = useActionState(",
+            "  (_prevState: unknown, formData: FormData) => {",
+            "    return updateContact(contact.id, formData);",
+            "  },",
+            "  {",
+            "    data: {",
+            "      avatar: contact.avatar,",
+            "      favorite: contact.favorite,",
+            "      first: contact.first,",
+            "      last: contact.last,",
+            "      notes: contact.notes,",
+            "      twitter: contact.twitter,",
+            "    } as ContactSchemaType,",
+            "    errors: {} as ContactSchemaErrorType,",
+            "  },",
+            ");"
+        ]
     }
 }
