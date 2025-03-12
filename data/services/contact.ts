@@ -1,11 +1,9 @@
 import 'server-only';
 
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
 import { prisma } from '@/db';
 
-// The function getContact is called multiple times in the same render. Therefore, it has been per-render cached with React cache.
-export const getContact = cache(async (contactId: string) => {
+export async function getContact(contactId: string) {
   const contact = await prisma.contact.findUnique({
     where: {
       id: contactId,
@@ -15,7 +13,7 @@ export const getContact = cache(async (contactId: string) => {
     notFound();
   }
   return contact;
-});
+}
 
 export async function getContacts() {
   return prisma.contact.findMany({

@@ -1,11 +1,15 @@
 {
-    "suspense": {
+    "contactpage": {
         "scope": "typescriptreact",
-        "prefix": "suspense",
+        "prefix": "contactpage",
         "body": [
-            "<Suspense fallback={<${1:} }>",
-            "${TM_SELECTED_TEXT}",
-            "</Suspense>"
+            "type PageProps = {",
+            "  params: Promise<unknown>;",
+            "};",
+            "",
+            "export default async function ContactPage({ params }: PageProps) {",
+            "  const { contactId } = routes.contactId.\\$parseParams(await params);",
+            ""
         ],
-    },
+    }
 }
