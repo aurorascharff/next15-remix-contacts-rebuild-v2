@@ -1,30 +1,44 @@
-import { getContact } from '@/data/services/contact';
-import { routes } from '@/validations/routeSchema';
+'use client';
+
+import { useState, useEffect } from 'react';
+import Skeleton from '@/components/ui/Skeleton';
+import { useSafeParams } from '@/validations/routeSchema';
 import ContactForm from './_components/ContactForm';
-import type { Metadata } from 'next';
+import type { Contact } from '@prisma/client';
 
-type PageProps = {
-  params: Promise<unknown>;
-};
+export default function EditContactPage() {
+  const { contactId } = useSafeParams('contactIdEdit');
+  const [contact, setContact] = useState<Contact | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { contactId } = routes.contactId.$parseParams(await params);
-  const contact = await getContact(contactId);
-
-  return contact && contact.first && contact.last
-    ? {
-        description: `Edit contact details for ${contact.first} ${contact.last}`,
-        title: `Edit: ${contact.first} ${contact.last}`,
+  useEffect(() => {
+    async function fetchContact() {
+      setIsLoading(true);
+      const response = await fetch(`/api/contacts/${contactId}`);
+      if (!response.ok) {
+        setIsLoading(false);
+        return;
       }
-    : {
-        description: 'Edit contact details for an unnamed contact',
-        title: 'Edit: Unnamed Contact',
-      };
-}
+      const data = await response.json();
+      setContact(data);
+      setIsLoading(false);
+    }
+    fetchContact();
+  }, [contactId]);
 
-export default async function EditContactPage({ params }: PageProps) {
-  const { contactId } = routes.contactIdEdit.$parseParams(await params);
-  const contact = await getContact(contactId);
-
-  return <ContactForm contact={contact} />;
+  return isLoading ? (
+    <div className="flex max-w-[40rem] flex-col gap-4 @container">
+      <div className="grip-rows-5 grid max-w-[40rem] gap-4 @sm:grid-cols-[1fr_4fr]">
+        <div className="hidden flex-col gap-[72px] @sm:flex @sm:gap-8">
+          <span className="flex">Name</span>
+          <span>Twitter</span>
+          <span>Avatar URL</span>
+          <span>Notes</span>
+        </div>
+        <Skeleton />
+      </div>
+    </div>
+  ) : (
+    <ContactForm contact={contact} />
+  );
 }

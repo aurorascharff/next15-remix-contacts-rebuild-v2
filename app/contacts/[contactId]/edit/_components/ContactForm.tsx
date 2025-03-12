@@ -10,7 +10,7 @@ import TextArea from '@/components/ui/TextArea';
 import { routes } from '@/validations/routeSchema';
 import type { Contact } from '@prisma/client';
 
-export default function ContactForm({ contact }: { contact: Contact }) {
+export default function ContactForm({ contact }: { contact?: Contact }) {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState({
@@ -21,17 +21,17 @@ export default function ContactForm({ contact }: { contact: Contact }) {
     twitter: undefined,
   });
   const [data, setData] = useState({
-    avatar: contact.avatar,
-    first: contact.first,
-    last: contact.last,
-    notes: contact.notes,
-    twitter: contact.twitter,
+    avatar: contact?.avatar,
+    first: contact?.first,
+    last: contact?.last,
+    notes: contact?.notes,
+    twitter: contact?.twitter,
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsPending(true);
-    const result = await fetch(`/api/contacts/${contact.id}`, {
+    const result = await fetch(`/api/contacts/${contact?.id}`, {
       body: new FormData(event.currentTarget),
       method: 'PUT',
     });
@@ -46,7 +46,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
       }
     } else if (result.status === 200) {
       router.refresh();
-      router.push(routes.contactId({ contactId: contact.id }));
+      router.push(routes.contactId({ contactId: contact?.id }));
     }
   };
 
@@ -98,7 +98,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         />
       </div>
       <div className="flex gap-2 self-start @sm:self-end">
-        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact.id })}>
+        <LinkButton theme="secondary" href={routes.contactId({ contactId: contact?.id })}>
           Cancel
         </LinkButton>
         <SubmitButton loading={isPending} type="submit" theme="primary">
