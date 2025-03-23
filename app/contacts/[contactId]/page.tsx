@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import ErrorMessage from '@/components/ui/ErrorMessage';
 import LinkButton from '@/components/ui/LinkButton';
 import Skeleton from '@/components/ui/Skeleton';
 import { routes, useSafeParams } from '@/validations/routeSchema';
@@ -12,17 +13,16 @@ import type { Contact } from '@prisma/client';
 
 export default function ContactPage() {
   const { contactId } = useSafeParams('contactId');
-  const [isLoading, setIsLoading] = useState(true);
-
   const [contact, setContact] = useState<Contact | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     async function fetchContact() {
       setIsLoading(true);
       const response = await fetch(`/api/contacts/${contactId}`);
       if (!response.ok) {
-        setIsLoading(false);
-        return;
+        setError('⚠️ Failed to fetch contact');
       }
       const data = await response.json();
       setContact(data);
@@ -36,6 +36,8 @@ export default function ContactPage() {
       <div className="mr-8 h-48 w-48 rounded-3xl bg-gray" />
       <Skeleton className="max-w-[250px]" />
     </div>
+  ) : error ? (
+    <ErrorMessage>{error}</ErrorMessage>
   ) : (
     <div className="flex flex-col gap-4 lg:flex-row">
       {contact?.avatar && (
