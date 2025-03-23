@@ -2,15 +2,14 @@ import React from 'react';
 import MessageBox from '@/components/message-box/MessageBox';
 import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
-import type { PageProps } from '@/.next/types/app/page';
 import type { Metadata } from 'next';
 
-type Props = {
+type LayoutProps = {
   children: React.ReactNode;
   params: Promise<unknown>;
 };
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
   const { contactId } = routes.contactId.$parseParams(await params);
   const contact = await getContact(contactId);
 
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       };
 }
 
-export default async function ContactsLayout({ children, params }: Props) {
+export default async function ContactsLayout({ children, params }: LayoutProps) {
   const { contactId } = routes.contactId.$parseParams(await params);
 
   return (
