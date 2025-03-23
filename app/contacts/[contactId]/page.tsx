@@ -6,7 +6,6 @@ import ErrorMessage from '@/components/ui/ErrorMessage';
 import LinkButton from '@/components/ui/LinkButton';
 import Skeleton from '@/components/ui/Skeleton';
 import { routes, useSafeParams } from '@/validations/routeSchema';
-import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
 import type { Contact } from '@prisma/client';
 
@@ -76,7 +75,7 @@ export default function ContactPage() {
           <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId })}>
             Edit
           </LinkButton>
-          <DeleteContactButton contactId={contactId} />
+          {/* <DeleteContactButton contactId={contactId} /> */}
         </div>
       </div>
     </div>

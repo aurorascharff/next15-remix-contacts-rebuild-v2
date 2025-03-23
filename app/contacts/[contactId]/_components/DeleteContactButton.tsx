@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import SubmitButton from '@/components/ui/SubmitButton';

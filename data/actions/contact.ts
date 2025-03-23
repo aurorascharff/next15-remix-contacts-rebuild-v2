@@ -60,11 +60,6 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
 }
 
 export async function deleteContact(contactId: string) {
-  await prisma.contact.delete({
-    where: {
-      id: contactId,
-    },
-  });
-
-  redirect(routes.home());
+  console.log('deleteContact', contactId);
+  // TODO
 }
