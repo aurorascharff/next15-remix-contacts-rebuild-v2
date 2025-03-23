@@ -42,7 +42,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
         setErrors(data.errors);
         setData(data.data);
       } else {
-        throw new Error('Something went wrong');
+        throw new Error('Failed to update contact');
       }
     } else if (result.status === 200) {
       router.push(routes.contactId({ contactId: contact.id }));

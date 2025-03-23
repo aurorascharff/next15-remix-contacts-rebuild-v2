@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import ErrorMessage from '@/components/ui/ErrorMessage';
 import LinkButton from '@/components/ui/LinkButton';
 import Skeleton from '@/components/ui/Skeleton';
@@ -22,7 +21,8 @@ export default function ContactPage() {
       setIsLoading(true);
       const response = await fetch(`/api/contacts/${contactId}`);
       if (!response.ok) {
-        setError('⚠️ Failed to fetch contact');
+        setIsLoading(false);
+        return setError('⚠️ Failed to fetch contact');
       }
       const data = await response.json();
       setContact(data);
@@ -76,9 +76,7 @@ export default function ContactPage() {
           <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId })}>
             Edit
           </LinkButton>
-          <ErrorBoundary fallback={<p>Something went wrong</p>}>
-            <DeleteContactButton contactId={contactId} />
-          </ErrorBoundary>
+          <DeleteContactButton contactId={contactId} />
         </div>
       </div>
     </div>

@@ -17,10 +17,11 @@ export default function Favorite({ contact }: { contact: Contact }) {
       body: formData,
       method: 'PUT',
     });
-    router.refresh();
     if (!res.ok) {
       setIsFavorite(isFavorite);
+      throw new Error('Failed to update favorite status');
     }
+    router.refresh();
   };
 
   return (

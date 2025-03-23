@@ -11,6 +11,7 @@ export async function GET() {
 }
 
 export async function POST() {
+  // throw new Error('Something went wrong');
   await slow();
 
   const contact = await prisma.contact.create({

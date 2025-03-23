@@ -7,7 +7,6 @@ import SubmitButton from './ui/SubmitButton';
 
 export default function NewContactButton() {
   const [isPending, setIsPending] = useState(false);
-  const [, setIsError] = useState(false);
   const router = useRouter();
 
   return (
@@ -22,12 +21,11 @@ export default function NewContactButton() {
         });
         setIsPending(false);
         if (!res.ok) {
-          setIsError(true);
-        } else {
-          const contactId = await res.json();
-          router.push(routes.contactIdEdit({ contactId }));
-          router.refresh();
+          throw new Error('Failed to delete contact');
         }
+        const contactId = await res.json();
+        router.push(routes.contactIdEdit({ contactId }));
+        router.refresh();
       }}
       type="submit"
     >

@@ -12,7 +12,7 @@
 ## Fetch async data, suspense
 
 - Fullscreen code
-- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. Make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx and error thrown from server with error.tsx
+- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. Make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary). We don't actually need a lib anymore.
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
 
 ## Use Server Functions and transitions (Actions)
@@ -20,7 +20,7 @@
 - DeleteContactButton: use server function instead of API endpoint, revalidatePath inside, automatic serialization and type safety, hover type
 - This can throw errors on its own, remove the !res.ok, remove res = await, remove router.push since this on the server
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state, no unstable state
-- Vise error boundary can catch errors since we use action, it didn't work before
+- Vise error boundary can catch errors since we use action, it didn't work before!
 
 ## Use forms for buttons and add useFormStatus()
 
@@ -34,12 +34,14 @@
 - Use useActionState() "contactActionState" with a server function, put updateContactAction on form
 - Returned value replaces form values with cmd + d
 - Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
+- Can throw errors again
 
 ## Simplify optimistic updates with useOptimistic()
 
 - Favorite: Use form with action, direct access to a specific server function, automatic serialization and type safety
 - Remove useState for the value
 - Automatically Form Server Action wrapped in transition, can call optimistic update inside
+- Can throw errors again
 
 ## Review and remove unnecessary code
 
