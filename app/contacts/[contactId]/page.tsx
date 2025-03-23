@@ -4,27 +4,11 @@ import { getContact } from '@/data/services/contact';
 import { routes } from '@/validations/routeSchema';
 import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
-import type { Metadata } from 'next';
 
 type PageProps = {
   params: Promise<unknown>;
   searchParams: Promise<unknown>;
 };
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { contactId } = routes.contactId.$parseParams(await params);
-  const contact = await getContact(contactId);
-
-  return contact && contact.first && contact.last
-    ? {
-        description: `Contact details for ${contact.first} ${contact.last}`,
-        title: `${contact.first} ${contact.last}`,
-      }
-    : {
-        description: 'Contact details for an unnamed contact',
-        title: 'Unnamed Contact',
-      };
-}
 
 export default async function ContactPage({ params, searchParams }: PageProps) {
   const { contactId } = routes.contactId.$parseParams(await params);
