@@ -12,7 +12,7 @@
 ## Fetch async data, suspense
 
 - Fullscreen code
-- ContactPage: make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx and error thrown from server with error.tsx
+- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. Make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx and error thrown from server with error.tsx
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
 
 ## Use Server Functions and transitions (Actions)
