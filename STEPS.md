@@ -42,7 +42,6 @@
 
 - SubmitButton: add useFormStatus() to show loading state even from the server, demo delete and new contact
 - Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
-- SearchStatus: showcase useFormStatus() to show loading state from a form with the default form behavior
 
 ## useActionState()
 
