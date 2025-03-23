@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const contacts = getContacts();
+  const contacts = await getContacts();
 
   return (
     <html lang="en">
@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <NewContactButton />
             </div>
             <Suspense fallback={<Skeleton className="flex grow flex-col px-10 py-6" />}>
-              <ContactList contactsPromise={contacts} />
+              <ContactList contacts={contacts} />
             </Suspense>
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
               <Link className="flex items-center gap-2 text-black no-underline" href={routes.home()}>
