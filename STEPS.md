@@ -17,7 +17,7 @@
 
 ## Use Server Functions and transitions (Actions)
 
-- DeleteContactButton: use server function instead of API endpoint, revalidatePath inside, automatic serialization and type safety, hover type
+- DeleteContactButton: just using router.refresh since we don't have any lib here, use server function instead of API endpoint, revalidatePath inside, automatic serialization and type safety, hover type
 - This can throw errors on its own, remove the !res.ok, remove res = await, remove router.push since this on the server
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state, no unstable state
 - Vise error boundary can catch errors since we use action, it didn't work before!
