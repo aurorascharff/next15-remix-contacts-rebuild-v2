@@ -31,9 +31,11 @@
 ## Migrate from onSubmit to form action with useActionState()
 
 - ContactForm: Showcase boilerplate code, no type safety, loading states, etc
+- Preventing default, avoiding the web platform.
 - Use useActionState() "contactActionState" with a server function, put updateContactAction on form
 - Returned value replaces form values with cmd + d
 - Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
+- Engages the web platform, no need to prevent default, native forms
 - Can throw errors again
 
 ## Simplify optimistic updates with useOptimistic()
