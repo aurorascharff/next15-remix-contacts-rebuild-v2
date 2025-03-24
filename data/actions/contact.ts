@@ -1,5 +1,3 @@
-'use server';
-
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/db';
@@ -7,6 +5,11 @@ import { slow } from '@/utils/slow';
 import type { ContactSchemaErrorType, ContactSchemaType } from '@/validations/contactSchema';
 import { contactSchema } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
+
+export async function deleteContact(contactId: string) {
+  console.log('deleteContact', contactId);
+  // TODO
+}
 
 export async function createEmptyContact() {
   await slow();
@@ -57,9 +60,4 @@ export async function favoriteContact(contactId: string, isFavorite: boolean) {
     },
   });
   revalidatePath(routes.home());
-}
-
-export async function deleteContact(contactId: string) {
-  console.log('deleteContact', contactId);
-  // TODO
 }

@@ -16,8 +16,8 @@
 
 ## Server Functions
 
-- DeleteContactButton: just using router.refresh since we don't have any lib here, use server function instead of API endpoint, revalidatePath inside, automatic serialization and type safety, hover type
-- Code deleteContact
+- DeleteContactButton: just using router.refresh since we don't have any lib here, use server function instead of API endpoint
+- Code deleteContact, revalidatePath inside. Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
 - Tilbake i client-side innebygd confirm modal kan vi kalle deleteContact server function som en vanlig funksjon og slette noe fra databasen. Dette er ganske magisk - noen synes det er litt for magisk.
 
 ## Cache
