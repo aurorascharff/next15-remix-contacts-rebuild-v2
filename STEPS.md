@@ -34,6 +34,7 @@
 
 ## Forms
 
+- Bruk form isteden for bare button, remove pending state
 - Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som opretter kontakten og redirecter. Direkte I en server component og trenger ikke use client her.
 - NewContactButton: Showcase, go to layout, replace with form and server function and SubmitButton, delete NewContactButton
 - Fokus på native forms!!! native search!!! hvorfor gjør vi disse greiene? remix-mønstre!
