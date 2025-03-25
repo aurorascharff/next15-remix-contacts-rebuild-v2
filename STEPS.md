@@ -45,7 +45,7 @@
 
 ## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
 
-- SubmitButton: add useFormStatus() to show loading state even from the server, demo DeleteContactButton and NewContactButton
+- SubmitButton: add useFormStatus() to show loading state even from the server, use in DeleteContactButton and NewContactButton
 - Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
 
 ## useActionState(): ContactForm
