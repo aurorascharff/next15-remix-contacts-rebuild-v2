@@ -79,7 +79,7 @@
 
 - Clean up and delete unused code
 - Delete API layer, we don't like this anyways since it's not type safe
-- Review diffs
+- Fullscreen: Review diffs
 - Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default and automatically serialized
 - In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
 - Additions to our toolkit
