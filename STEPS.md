@@ -9,11 +9,11 @@
 - Make component async "contactPage", add await prisma query and delete useEffect.
 - We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
-- Replace with getContact function data access layer. We don't actually need a lib anymore.
+- Replace with getContact function data access layer.
 
 ## Client Components: layout.tsx
 
-- layout.tsx: Comment inn DeleteContactButton, needs browser api and state, get error, add use client!
+- layout.tsx: Comment inn DeleteContactButton, needs browser api and state, get error, add use client! Now we can access the built-in confirm modal.
 
 ## Server Functions: DeleteContactButton
 
