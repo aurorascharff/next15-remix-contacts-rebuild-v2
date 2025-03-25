@@ -9,6 +9,7 @@
 - Remove use client, we'll learn in a sec why i needed this before!
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
 - Hent data i edit også, samme logikk
+- Får react en mer built inn data fetching startegi inni komponenten selv på serveren, som ofte kan fjerne behov for useEffect eller react query fetching. Og som vi så er useeffect også et mye hatet API. Kan fremdeles bruke react query og api-kall hvis man heller vil.
 
 ## Client Components
 
