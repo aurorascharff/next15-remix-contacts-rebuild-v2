@@ -53,5 +53,14 @@
             "      };",
             "}"
         ]
+    },
+    "suspenseSkeleton": {
+        "scope": "typescriptreact",
+        "prefix": "suspenseSkeleton",
+        "body": [
+            "<Suspense fallback={<Skeleton className=\"flex grow flex-col px-10 py-6\" />}>",
+            "  $0",
+            "</Suspense>"
+        ]
     }
 }

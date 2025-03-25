@@ -32,15 +32,16 @@
 ## Actions: DeleteContactButton
 
 - DeleteContactButton: Showcase I can't catch errors by adding throw error from function
-- Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state, no unstable state
+- Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state
 - This can throw errors on its own, remove try catch
 - Vise error boundary can catch errors since we use action, it didn't work before!
 
 ## Forms: DeleteContactButton, NewContactButton
 
-- DeleteContactButton: Bruk form isteden for bare button, remove pending state
-- Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som opretter kontakten og redirecter. Direkte I en server component og trenger ikke use client her. Trenger ikke preventDefault.
-- NewContactButton: Showcase, go to layout, replace with form and server function and SubmitButton, delete NewContactButton
+- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors.
+- Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som oppretter kontakten og redirecter. Trenger ikke preventDefault.
+- NewContactButton: Replace with form and server function and SubmitButton, move it to layout, delete NewContactButton. Direkte I en server component og trenger ikke use client her.
+- Fjernet mye kode men er uten loading state.
 
 ## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
 
@@ -49,28 +50,30 @@
 
 ## useActionState(): ContactForm
 
-- ContactForm: Showcase boilerplate code, no type safety, loading states, etc
+- ContactForm: Showcase boilerplate code, no type safety, loading states, etc. No form library. Using basic states to return errors and data from server.
 - Preventing default, avoiding the web platform.
-- Use useActionState() "contactActionState" with a server function, put updateContactAction on form
-- Returned value replaces form values with cmd + d
+- Replace states with useActionState() "contactActionState", uses native web formData, and calls a server action, put updateContactAction on form.
+- Returned value replaces form errors and data with cmd + d
 - Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
-- Uses built in formData()!
-- Engages the web platform, no need to prevent default, native forms
-- Her I denne demo-appen bruker jeg UseActionState til å returnere for eksempel valideringsfeil fra en Action, og knytte den til et skjema med action={} propertien, som kan erstatte form-libraries som React Hook Form I noen tilfeller.
-- Can throw errors again
+- Engages the web platform with action and formData, no need to prevent default, native forms
+- And again, we can catch and throw errors directly
+- We can in some cases omit the form library
 
 ## useOptimistic(): Favorite
 
-- Små ting som her, som dere ser er knappetrykket instant selvom det litt mer tid, synlig ved at sidebaren oppdateres senere. Men da får man god opplevelse for brukeren.
+- A naive implementation of optimistic updates, sidebar is updated later
+- First lets use some of the stuff we already learned how to use
 - Favorite: Use form with action, direct access to a specific server function, automatic serialization and type safety
-- Remove useState for the value
+- Replace useState with useOptimistic
 - Automatically Form Server Action wrapped in transition, can call optimistic update inside
-- Legg merke til aat jeg bruker et skjema igje fordi det automaatisk lager actions som man trenger for optimistic updates.
+- Optimistic updates must be called in transitions
 - Can throw errors again
 
 ## use(): layout.tsx
 
 - View delayed page load because fetching in layout
+- We have to fetch on the server, but ContactList is a client component
+- Add use() to layout.tsx, and wrap with "suspenseSkeleton"
 
 ## Review
 
