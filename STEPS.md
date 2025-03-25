@@ -57,7 +57,6 @@
 - Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
 - Engages the web platform with action and formData, no need to prevent default, native forms
 - And again, we can catch and throw errors directly
-- We can in some cases omit the form library
 
 ## useOptimistic(): Favorite
 
