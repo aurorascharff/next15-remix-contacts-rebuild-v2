@@ -1,49 +1,53 @@
 # Using features of React 19
 
-## Server Components
+## Server Components: ContactPage
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
-- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. Make component async "contactPage", move await with fetch and response.json instead of usEffect (or React Query), use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary). We don't actually need a lib anymore.
-- Code getContact
+- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that.
 - Remove use client, we'll learn in a sec why i needed this before!
-- Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact
-- Hent data i edit også, samme logikk
+- Make component async "contactPage", add await prisma query and delete useEffect.
+- We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
+- Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
+- Replace with getContact function data access layer. We don't actually need a lib anymore.
 
-## Client Components
+## Client Components: layout.tsx
 
-- Comment inn DeleteContactButton, needs browser api and state, get error, add use client!
+- layout.tsx: Comment inn DeleteContactButton, needs browser api and state, get error, add use client!
 
-## Server Functions
+## Server Functions: DeleteContactButton
 
-- DeleteContactButton: just using router.refresh since we don't have any lib here, use server function instead of API endpoint
-- Code deleteContact, revalidatePath inside. Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
-- Tilbake i client-side innebygd confirm modal kan vi kalle deleteContact server function som en vanlig funksjon og slette noe fra databasen. Dette er ganske magisk - noen synes det er litt for magisk.
+- DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact.
+- Code deleteContact, slow + revalidatePath inside.
+- Remove router.refresh og res.ok, use try catch rather.
+- Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
+- Tilbake i client-side innebygd confirm modal kan vi kalle deleteContact server function som en vanlig funksjon og slette noe fra databasen. Dette er ganske magisk.
 
-## Cache
+## Cache: ContactPage
 
-- Lets say i want metadata, now I'm fetching twice
+- ContactPage: Lets say i want metadata, now I'm fetching twice, showcase console.log
 - Add cache around getContact since it's being used twice per page for metadata
+- Showcase console.log
 
-## Actions
+## Actions: DeleteContactButton
 
-- DeleteContactButton: This can throw errors on its own, remove the !res.ok, remove res = await, remove router.push since this on the server
+- DeleteContactButton: Showcase I can't catch errors by adding throw error from function
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state, no unstable state
-- Samme eksempel som før, men denne gangen har vi lagt på en transition rundt deleteContact, det vil si at vi nå lager en action, som gir oss en automtisk pending state som vi kan bruke for å se en loading spinner på Knappen mens den utfører.
+- This can throw errors on its own, remove try catch
 - Vise error boundary can catch errors since we use action, it didn't work before!
 
-## Forms
+## Forms: DeleteContactButton, NewContactButton
 
-- Bruk form isteden for bare button, remove pending state
+- DeleteContactButton: Bruk form isteden for bare button, remove pending state
 - Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som opretter kontakten og redirecter. Direkte I en server component og trenger ikke use client her. Trenger ikke preventDefault.
 - NewContactButton: Showcase, go to layout, replace with form and server function and SubmitButton, delete NewContactButton
 
-## useFormStatus()
+## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
 
-- SubmitButton: add useFormStatus() to show loading state even from the server, demo delete and new contact
+- SubmitButton: add useFormStatus() to show loading state even from the server, demo DeleteContactButton and NewContactButton
 - Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
 
-## useActionState()
+## useActionState(): ContactForm
 
 - ContactForm: Showcase boilerplate code, no type safety, loading states, etc
 - Preventing default, avoiding the web platform.
@@ -55,7 +59,7 @@
 - Her I denne demo-appen bruker jeg UseActionState til å returnere for eksempel valideringsfeil fra en Action, og knytte den til et skjema med action={} propertien, som kan erstatte form-libraries som React Hook Form I noen tilfeller.
 - Can throw errors again
 
-## useOptimistic()
+## useOptimistic(): Favorite
 
 - Små ting som her, som dere ser er knappetrykket instant selvom det litt mer tid, synlig ved at sidebaren oppdateres senere. Men da får man god opplevelse for brukeren.
 - Favorite: Use form with action, direct access to a specific server function, automatic serialization and type safety
@@ -64,7 +68,7 @@
 - Legg merke til aat jeg bruker et skjema igje fordi det automaatisk lager actions som man trenger for optimistic updates.
 - Can throw errors again
 
-## use()
+## use(): layout.tsx
 
 - View delayed page load because fetching in layout
 

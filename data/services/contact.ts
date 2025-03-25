@@ -1,13 +1,28 @@
 import 'server-only';
 
-import { prisma } from '@/db';
+import { notFound } from 'next/navigation';
 
-export const getContact = (contactId: string) => {
+import { prisma } from '@/db';
+import { slow } from '@/utils/slow';
+
+export const getContact = async (contactId: string) => {
+  await slow();
   console.log('getContact', contactId);
-  // TODO
+
+  const contact = await prisma.contact.findUnique({
+    where: { id: contactId },
+  });
+
+  if (!contact) {
+    notFound();
+  }
+
+  return contact;
 };
 
 export async function getContacts() {
+  await slow();
+
   return prisma.contact.findMany({
     orderBy: [{ first: 'asc' }, { last: 'asc' }],
   });

@@ -1,3 +1,5 @@
+'use server';
+
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/db';
@@ -7,6 +9,9 @@ import { contactSchema } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
 
 export async function deleteContact(contactId: string) {
+  // throw new Error('Something went wrong');
+  await slow();
+
   console.log('deleteContact', contactId);
   // TODO
 }
