@@ -4,7 +4,7 @@
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
-- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
+- ContactPage: Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
 - We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
