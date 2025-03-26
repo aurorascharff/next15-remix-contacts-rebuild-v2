@@ -19,7 +19,7 @@
 - DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact function, showcase it can do a redirect after mutation.
 - Remove router.refresh og res.ok, this can throw on its own.
 - Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
-- Tilbake i client-side innebygd confirm modal kan vi kalle deleteContact server function som en vanlig funksjon og slette noe fra databasen. Dette er ganske magisk.
+- Back in client-side built-in confirm modal we can call deleteContact on the server like a regular function and delete the contact. Magical.
 
 ## Cache: ContactPage
 
