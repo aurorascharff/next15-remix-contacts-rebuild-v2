@@ -76,6 +76,7 @@
 - Clean up and delete unused code
 - Delete API layer, we don't like this anyways since it's not type safe
 - Fullscreen: Review diffs
-- Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states, everything is type safe by default and automatically serialized
-- In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
+- Less boilerplate, cleaner code, no flickering pending states, error boundaries, and loading states. We dont have to use useState and useEffect for everything!
+- Everything is type safe by default and automatically serialized
 - Additions to our toolkit
+- In many cases we can now survive without React Query, tRPC, React Hook Form, but we can also use them if we want to
