@@ -1,43 +1,35 @@
-'use client';
-
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import ErrorMessage from '@/components/ui/ErrorMessage';
 import LinkButton from '@/components/ui/LinkButton';
-import Skeleton from '@/components/ui/Skeleton';
-import { routes, useSafeParams } from '@/validations/routeSchema';
+import { getContact } from '@/data/services/contact';
+import { routes } from '@/validations/routeSchema';
+import DeleteContactButton from './_components/DeleteContactButton';
 import Favorite from './_components/Favorite';
-import type { Contact } from '@prisma/client';
+import type { Metadata } from 'next';
 
-export default function ContactPage() {
-  const { contactId } = useSafeParams('contactId');
-  const [contact, setContact] = useState<Contact | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+type PageProps = {
+  params: Promise<unknown>;
+};
 
-  useEffect(() => {
-    async function fetchContact() {
-      setIsLoading(true);
-      const response = await fetch(`/api/contacts/${contactId}`);
-      if (!response.ok) {
-        setIsLoading(false);
-        return setError('⚠️ Failed to fetch contact');
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { contactId } = routes.contactId.$parseParams(await params);
+  const contact = await getContact(contactId);
+
+  return contact && contact.first && contact.last
+    ? {
+        description: `Contact details for ${contact.first} ${contact.last}`,
+        title: `${contact.first} ${contact.last}`,
       }
-      const data = await response.json();
-      setContact(data);
-      setIsLoading(false);
-    }
-    fetchContact();
-  }, [contactId]);
+    : {
+        description: 'Contact details for an unnamed contact',
+        title: 'Unnamed Contact',
+      };
+}
 
-  return isLoading ? (
-    <div className="flex flex-col gap-4 lg:flex-row">
-      <div className="mr-8 h-48 w-48 rounded-3xl bg-gray" />
-      <Skeleton className="max-w-[250px]" />
-    </div>
-  ) : error ? (
-    <ErrorMessage>{error}</ErrorMessage>
-  ) : (
+export default async function ContactPage({ params }: PageProps) {
+  const { contactId } = routes.contactId.$parseParams(await params);
+  const contact = await getContact(contactId);
+
+  return (
     <div className="flex flex-col gap-4 lg:flex-row">
       {contact?.avatar && (
         <div className="flex-shrink-0">
@@ -75,7 +67,7 @@ export default function ContactPage() {
           <LinkButton prefetch={true} theme="secondary" href={routes.contactIdEdit({ contactId })}>
             Edit
           </LinkButton>
-          {/* <DeleteContactButton contactId={contactId} /> */}
+          <DeleteContactButton contactId={contactId} />
         </div>
       </div>
     </div>

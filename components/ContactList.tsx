@@ -1,17 +1,18 @@
 'use client';
 
 import { matchSorter } from 'match-sorter';
-import React from 'react';
+import React, { use } from 'react';
 import { useSafeSearchParams } from '@/validations/routeSchema';
 import ContactButton from './ContactButton';
 import type { Contact } from '@prisma/client';
 
 type Props = {
-  contacts: Contact[];
+  contactsPromise: Promise<Contact[]>;
 };
 
-export default function ContactList({ contacts }: Props) {
+export default function ContactList({ contactsPromise }: Props) {
   const { q } = useSafeSearchParams('home');
+  const contacts = use(contactsPromise);
 
   const filteredContacts = q
     ? matchSorter(contacts, q, {

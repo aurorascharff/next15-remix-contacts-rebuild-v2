@@ -4,8 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import ContactList from '@/components/ContactList';
-import NewContactButton from '@/components/NewContactButton';
 import Search from '@/components/Search';
+import Skeleton from '@/components/ui/Skeleton';
+import SubmitButton from '@/components/ui/SubmitButton';
+import { createEmptyContact } from '@/data/actions/contact';
 import { getContacts } from '@/data/services/contact';
 import Logo from '@/public/next-js.svg';
 import { routes } from '@/validations/routeSchema';
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const contacts = await getContacts();
+  const contacts = getContacts();
 
   return (
     <html lang="en">
@@ -32,9 +34,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <Suspense>
                 <Search />
               </Suspense>
-              <NewContactButton />
+              <form action={createEmptyContact}>
+                <SubmitButton theme="secondary" type="submit">
+                  New
+                </SubmitButton>
+              </form>
             </div>
-            <ContactList contacts={contacts} />
+            <Suspense fallback={<Skeleton className="flex grow flex-col px-10 py-6" />}>
+              <ContactList contactsPromise={contacts} />
+            </Suspense>
             <div className="m-0 hidden flex-row items-center gap-2 border-t border-t-gray px-8 py-4 font-medium sm:flex">
               <Link className="flex items-center gap-2 text-black no-underline" href={routes.home()}>
                 <Image priority width={30} height={30} src={Logo} alt="Next.js logo" />

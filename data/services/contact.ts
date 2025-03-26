@@ -1,11 +1,11 @@
 import 'server-only';
 
 import { notFound } from 'next/navigation';
-
+import { cache } from 'react';
 import { prisma } from '@/db';
 import { slow } from '@/utils/slow';
 
-export const getContact = async (contactId: string) => {
+export const getContact = cache(async (contactId: string) => {
   console.log('getContact', contactId);
 
   await slow();
@@ -19,7 +19,7 @@ export const getContact = async (contactId: string) => {
   }
 
   return contact;
-};
+});
 
 export async function getContacts() {
   await slow();
