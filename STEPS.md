@@ -1,6 +1,6 @@
 # Using features of React 19
 
-## Server & Components: ContactPage
+## Server & Client Components: ContactPage
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
@@ -15,8 +15,8 @@
 ## Server Functions: DeleteContactButton
 
 - DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact function, showcase it can do a redirect after mutation.
-- Remove router.refresh og res.ok, this can throw on its own.
 - Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
+- Remove router.refresh og res.ok, this can throw on its own.
 - Back in client-side built-in confirm modal we can call deleteContact on the server like a regular function and delete the contact. Magical.
 
 ## Cache: ContactPage
