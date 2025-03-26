@@ -36,15 +36,14 @@
 ## Forms: NewContactButton
 
 - NewContactButton: Replace with form and bound to a server function which creates new contact and redirect, we cannot convert the pending state just yet. No need for prevent default.
-- Making buttons with forms istedenfor on clicks, can run without javascript.
+- Making buttons with forms istedenfor on clicks, can run without javascript when calling Server Function directly.
 - No need for use client here, delete NewContactButton, move it to layout. Direkte I en server component.
-- Foreløpig har ikke denne pending state
 
 ## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
 
-- SubmitButton: add useFormStatus() to show loading state even from the server, use in NewContactButton, then DeleteContactButton
-- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors.
+- SubmitButton: add useFormStatus() to show loading state even from the server, use in NewContactButton.
 - Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
+- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors, automatic loading state.
 
 ## useActionState(): ContactForm
 
