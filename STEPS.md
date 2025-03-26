@@ -51,6 +51,7 @@
 - Preventing default, avoiding the web platform.
 - Replace states with useActionState() "contactActionState", uses native web formData, and calls a server action, put updateContactAction on form.
 - Returned value replaces form errors and data with cmd + d
+- Remove step by step all content in onSubmit, then remove onSubmit
 - Remove isLoading useState and from submitButton since it uses useFormStatus(), reuse composable component
 - Engages the web platform with action and formData, no need to prevent default, native forms
 - And again, we can catch and throw errors directly
@@ -58,12 +59,11 @@
 ## useOptimistic(): Favorite
 
 - A naive implementation of optimistic updates, sidebar is updated later
-- First lets use some of the stuff we already learned how to use
+- First lets use some of the stuff we already learned how to use, benefits of Actions and Server Functions, fjern handleFavorite
 - Favorite: Use form with action, direct access to a specific server function, automatic serialization and type safety
-- Replace useState with useOptimistic
-- Automatically Form Server Action wrapped in transition, can call optimistic update inside
+- Replace useState with useOptimistic, this function only creates a temporary client state, rolls back after transition
 - Optimistic updates must be called in transitions
-- Can throw errors again
+- Automatically Form Server Action wrapped in transition, can call optimistic update inside
 
 ## use(): layout.tsx
 
