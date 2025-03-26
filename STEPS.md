@@ -23,27 +23,26 @@
 
 ## Cache: ContactPage
 
-- ContactPage: Lets say i want metadata, now I'm fetching twice, showcase console.log
+- ContactPage: Lets say i want metadata, now I'm fetching twice, showcase console.log. Not for components in this case but same use case.
 - Add cache around getContact since it's being used twice per page for metadata
 - Showcase console.log
 
 ## Actions: DeleteContactButton
 
-- DeleteContactButton: Showcase I can't catch errors by adding throw error from function
-- Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state
-- This can throw errors on its own, remove try catch
-- Vise error boundary can catch errors since we use action, it didn't work before!
+- DeleteContactButton: Manually handling pending state, and showcase I can't catch errors by adding throw error from function
+- Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state. Pending state is now perfectly timed with the completion of the Action.
+- Vise error boundary can catch errors since we use action, it didn't work before! Remove thrown error.
 
-## Forms: DeleteContactButton, NewContactButton
+## Forms: NewContactButton
 
-- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors.
-- Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som oppretter kontakten og redirecter. Trenger ikke preventDefault.
 - NewContactButton: Replace with form and server function and SubmitButton, move it to layout, delete NewContactButton. Direkte I en server component og trenger ikke use client her.
-- Fjernet mye kode men er uten loading state.
+- Her lager jeg knapper med forms istedenfor onclicks, bound til en server function som oppretter kontakten og redirecter. Trenger ikke preventDefault.
+- Foreløpig har ikke denne pending state
 
 ## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
 
 - SubmitButton: add useFormStatus() to show loading state even from the server, use in DeleteContactButton and NewContactButton
+- - DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors.
 - Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
 
 ## useActionState(): ContactForm

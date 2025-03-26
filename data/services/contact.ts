@@ -6,8 +6,9 @@ import { prisma } from '@/db';
 import { slow } from '@/utils/slow';
 
 export const getContact = async (contactId: string) => {
-  await slow();
   console.log('getContact', contactId);
+
+  await slow();
 
   const contact = await prisma.contact.findUnique({
     where: { id: contactId },
