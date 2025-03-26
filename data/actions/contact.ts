@@ -7,11 +7,14 @@ import { contactSchema } from '@/validations/contactSchema';
 import { routes } from '@/validations/routeSchema';
 
 export async function deleteContact(contactId: string) {
-  // throw new Error('Something went wrong');
   await slow();
 
-  console.log('deleteContact', contactId);
-  // TODO
+  await prisma.contact.delete({
+    where: {
+      id: contactId,
+    },
+  });
+  redirect(routes.home());
 }
 
 export async function createEmptyContact() {

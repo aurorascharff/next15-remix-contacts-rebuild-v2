@@ -12,7 +12,6 @@ type Params = {
 };
 
 export async function GET(_request: NextRequest, { params }: Params) {
-  // throw new Error('Something went wrong');
   await slow();
 
   const contactId = (await params).contactId;
@@ -29,7 +28,6 @@ export async function GET(_request: NextRequest, { params }: Params) {
 }
 
 export async function PUT(request: NextRequest, { params }: Params) {
-  // throw new Error('Something went wrong');
   await slow();
 
   const contactId = (await params).contactId;
@@ -60,7 +58,6 @@ export async function PUT(request: NextRequest, { params }: Params) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: Params) {
-  // throw new Error('Something went wrong');
   await slow();
 
   const contactId = (await params).contactId;

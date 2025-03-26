@@ -4,8 +4,7 @@
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
-- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that.
-- Remove use client, we'll learn in a sec why i needed this before!
+- ContactPage: Typisk useffect, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
 - We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
 - Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
@@ -17,9 +16,8 @@
 
 ## Server Functions: DeleteContactButton
 
-- DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact.
-- Code deleteContact, slow + revalidatePath inside.
-- Remove router.refresh og res.ok, use try catch rather.
+- DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact function, showcase it can do a redirect after mutation.
+- Remove router.refresh og res.ok, this can throw on its own.
 - Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
 - Tilbake i client-side innebygd confirm modal kan vi kalle deleteContact server function som en vanlig funksjon og slette noe fra databasen. Dette er ganske magisk.
 
