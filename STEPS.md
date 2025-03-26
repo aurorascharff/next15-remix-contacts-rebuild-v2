@@ -1,18 +1,16 @@
 # Using features of React 19
 
-## Server Components: ContactPage
+## Server & Components: ContactPage
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
+- Remove "use client" from ContactPage, now a server component
 - ContactPage: Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
 - We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
-- Hover type:any, now use db function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
+- Hover type:any, now use db  function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
 - Replace with getContact function data access layer.
-
-## Client Components: layout.tsx
-
-- layout.tsx: Comment inn DeleteContactButton, needs browser api and state, get error, add use client! Now we can access the built-in confirm modal.
+- ContactPage: Comment inn DeleteContactButton, needs browser api and state, get error, add use client! Now we can access the built-in confirm modal.
 
 ## Server Functions: DeleteContactButton
 

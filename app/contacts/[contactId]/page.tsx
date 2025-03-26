@@ -11,6 +11,7 @@ import type { Contact } from '@prisma/client';
 
 export default function ContactPage() {
   const { contactId } = useSafeParams('contactId');
+
   const [contact, setContact] = useState<Contact | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
