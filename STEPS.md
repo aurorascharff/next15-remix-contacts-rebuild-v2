@@ -27,9 +27,9 @@
 
 ## Actions: DeleteContactButton
 
-- DeleteContactButton: Manually handling pending state, and showcase I can't catch errors by adding throw error from function
+- DeleteContactButton: Manually handling pending state, (and showcase I can't catch errors by adding throw error from function).
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state. Pending state is now perfectly timed with the completion of the Action.
-- Vise error boundary can catch errors since we use action, it didn't work before! Remove thrown error.
+- (Vise error boundary can catch errors since we use action, it didn't work before! Remove thrown error.)
 
 ## Forms: NewContactButton
 
