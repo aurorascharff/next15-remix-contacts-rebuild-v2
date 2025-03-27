@@ -25,23 +25,17 @@
 - Add cache around getContact since it's being used twice per page for metadata
 - Showcase console.log
 
-## Actions: DeleteContactButton
+## Actions, form & useFormStatus(): DeleteContactButton, SubmitButton, NewContactButton, layout.tsx
 
 - DeleteContactButton: Manually handling pending state, (and showcase I can't catch errors by adding throw error from function).
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state. Pending state is now perfectly timed with the completion of the Action.
 - (Vise error boundary can catch errors since we use action, it didn't work before! Remove thrown error.)
-
-## Forms: NewContactButton
-
-- NewContactButton: Replace with form and bound to a server function which creates new contact and redirect, we cannot convert the pending state just yet. No need for prevent default.
-- Making buttons with forms istedenfor on clicks, can run without javascript when calling Server Function directly.
-- No need for use client here, delete NewContactButton, move it to layout. Direkte I en server component.
-
-## useFormStatus(): SubmitButton, DeleteContactButton, NewContactButton
-
-- SubmitButton: add useFormStatus() to show loading state even from the server, use in NewContactButton.
-- Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
 - DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors, automatic loading state.
+- SubmitButton: add useFormStatus() to show loading state again
+- NewContactButton: Replace with form and bound to a server function directly which creates new contact and redirect. Remove pending state! No need for prevent default.
+- No need for use client here, delete NewContactButton, move it to layout. Direkte I en server component.
+- Vi er faktisk på serveren her, men SubmitButton med useFormStatus håndterer alt av interaktivitet, composability.
+- Making buttons with forms istedenfor on clicks, can run without javascript when calling Server Function directly.
 
 ## useActionState(): ContactForm
 
