@@ -5,7 +5,7 @@
 - Next.js 15 with React 19
 - Remake of remix contacts app
 - Remove "use client" from ContactPage, now a server component
-- ContactPage: Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
+- ContactPage: Familiar? Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
 - We have alot of states, use suspense for loading state with loading.tsx and error thrown from server with error.tsx (could be errorboundary).
 - Hover type:any, now use db  function directly instead of fetch since we are already on the server. Automatic type safety without tRPC etc, hover type contact.
@@ -14,7 +14,7 @@
 
 ## Server Functions: DeleteContactButton
 
-- DeleteContactButton: bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact function, showcase it can do a redirect after mutation.
+- DeleteContactButton: Familiar? bruker fetch without types, just using router.refresh since we don't have any lib here, lets call a function instead of API endpoint. Add deleteContact function, showcase it can do a redirect after mutation.
 - Show its failing, legg til "use server" to turn them into endpoints! Works! Automatic serialization and type safety, hover type, show type.
 - Remove router.refresh og res.ok, this can throw on its own.
 - Back in client-side built-in confirm modal we can call deleteContact on the server like a regular function and delete the contact. Magical.
@@ -30,7 +30,13 @@
 - DeleteContactButton: Manually handling pending state, (and showcase I can't catch errors by adding throw error from function).
 - Switch from manual isLoading to a async transition, creating an Action + Server Action, use pending state. Pending state is now perfectly timed with the completion of the Action.
 - (Vise error boundary can catch errors since we use action, it didn't work before! Remove thrown error.)
-- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors, automatic loading state.
+
+## Form: DeleteContactButton
+
+- DeleteContactButton: Bruk form isteden for bare button, remove pending state. Automatic transition for throwing errors.
+
+## useFormStatus(): SubmitButton, NewContactButton
+
 - SubmitButton: add useFormStatus() to show loading state again
 - NewContactButton: Replace with form and bound to a server function directly which creates new contact and redirect. Remove pending state! No need for prevent default.
 - No need for use client here, delete NewContactButton, move it to layout. Direkte I en server component.
