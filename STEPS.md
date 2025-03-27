@@ -1,9 +1,16 @@
 # Using features of React 19
 
-## Server & Client Components: ContactPage
+## Intro
 
 - Next.js 15 with React 19
 - Remake of remix contacts app
+- Quick demo, view edit save
+- Not so smooth, using patterns before React 19
+- I want to refactor, simplify, and improve the app with React 19
+
+## Server & Client Components: ContactPage
+
+
 - Remove "use client" from ContactPage, now a server component
 - ContactPage: Familiar? Typisk useffect, fetching to our api, many ways to write this, which is a also a problem. No types. Usually you would use a lib (React Query), let's try to survive without that. Loading and error state.
 - Make component async "contactPage", add await prisma query and delete useEffect.
@@ -19,7 +26,7 @@
 - Remove router.refresh og res.ok, this can throw on its own.
 - Back in client-side built-in confirm modal we can call deleteContact on the server like a regular function and delete the contact. Magical.
 
-## Cache: ContactPage
+## (Cache: ContactPage)
 
 - ContactPage: Lets say i want metadata, now I'm fetching twice, showcase console.log. Not for components in this case but same use case.
 - Add cache around getContact since it's being used twice per page for metadata
@@ -63,13 +70,13 @@
 - Optimistic updates must be called in transitions
 - Automatically Form Server Action wrapped in transition, can call optimistic update inside
 
-## use(): layout.tsx
+## (use(): layout.tsx)
 
 - View delayed page load because fetching in layout
 - We have to fetch on the server, but ContactList is a client component
 - Add use() to layout.tsx, and wrap with "suspenseSkeleton"
 
-## Review
+## (Review)
 
 - Clean up and delete unused code
 - Delete API layer, we don't like this anyways since it's not type safe
